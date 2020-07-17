@@ -1,0 +1,13 @@
+.tab-container {
+    width: 213.33px;
+    height: 105px;
+    background-color:white;
+    margin: 10px 0;
+    margin-left: 10px;
+    padding: 6px 0 6px 10px;
+    border-radius: 5px;
+}
+
+.tab-container.first {
+    margin-left: 0px;
+}
