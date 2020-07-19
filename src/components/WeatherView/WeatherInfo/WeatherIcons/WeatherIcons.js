@@ -14,7 +14,7 @@ export default function WeatherIcons(props) {
     const icons = weatherConds.map((cond, index) => {
         return (
             <div key={index} className='icon-cont'>
-                <img src={iconsPaths[0]}></img>
+                <img src={iconsPaths[3]}></img>
             </div>
         );
     });
