@@ -1,0 +1,36 @@
+.wind-cont {
+    width: 100%;
+    height: 62px;
+    margin-top: 12px;
+}
+.wind-cont-header {
+    width: 100%;
+    font-size: 15px;
+    line-height: 22px;
+    padding-bottom: 7px;
+}
+.wind-cont-header > span {
+    padding: 0 15px;
+}
+.wind-cont-speed {
+    width: 100%;
+    height: 33px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+}
+.wind-speed {
+    width: 82.5px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wind-speed > div {
+    width: 60px;
+    height: 28px;
+    transform: skew(-12deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

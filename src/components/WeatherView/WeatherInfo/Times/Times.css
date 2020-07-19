@@ -1,0 +1,16 @@
+.times-cont {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+}
+.times-time {
+    width: 82.5px;
+    height: 32px;
+    padding-top: 11px;
+    font-size: 15px;
+    text-align: center;
+} 
+.times-time > span {
+    font-weight: bold;
+}

@@ -1,4 +1,4 @@
-.header-main-container {
+.header-cont {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -6,20 +6,20 @@
     background-color: #359FFB;
 }
 
-.header-main-container > div {
+.header-cont > div {
     height: 100%;
     width: 660px;
     display: flex;
     align-items: center;
 }
 
-.header-main-container__city {
+.header-cont__city {
     outline: none;
     height: 30px;
     border: 1px solid white;
     border-radius: 5px;
     padding: 0 10px;
 }
-.header-main-container__city::placeholder {
+.header-cont__city::placeholder {
     color: #359FFB;
 }

@@ -10,8 +10,8 @@ export default function App() {
         <div className='app-main-container'>
             {/* {Header} с поиском и нзванием города */}
             <Header></Header>
+             {/* {WeatherForm} */}
             <WeatherView></WeatherView>
-            {/* {WeatherForm} */}
         </div>
     );
 }

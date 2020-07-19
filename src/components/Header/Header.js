@@ -4,9 +4,9 @@ import './Header.css';
 
 export default function Header(props) {
     return (
-        <div className='header-main-container'>
+        <div className='header-cont'>
             <div>
-                <input className='header-main-container__city' 
+                <input className='header-cont__city' 
                     type='text'
                     placeholder='City'
                     />

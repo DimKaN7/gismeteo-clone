@@ -6,8 +6,68 @@
     margin-left: 10px;
     padding: 6px 0 6px 10px;
     border-radius: 5px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    display: flex;
+    flex-direction: row;
 }
-
+.tab-container:hover {
+    box-shadow: 0px 5px 21px -8px #000000;
+}
 .tab-container.first {
     margin-left: 0px;
+    /* background-image: url('../../../../icons/c3.svg'); */
+}
+.tab-container.selected {
+    cursor: default;
+}
+
+/* #################tab-content################# */
+.tab-content {
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+}
+.tab-content__date {
+    font-size: 17px;
+    line-height: 19px;
+}
+.tab-content__day {
+    font-size: 13px;
+    line-height: 15px;
+    color: #777;
+}
+.tab-content__temp {
+    height: 46px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 11px;
+}
+.tab-content__temp-n,  .tab-content__temp-d {
+    position: relative;
+    width: 50%;
+    height: 30px;
+}
+/* .tab-content__temp-n {
+    top: 16px;
+    background-color: #D7F4CB;
+}
+.tab-content__temp-d {
+    background-color: #FEF0C1;
+} */
+
+/*#################tab-visual#################  */
+.tab-visual {
+    margin: 0 5px;
+    flex: 1 0 auto;
+}
+.tab-visual__icon {
+    height: 72px;
+    text-align: center;
+}
+.tab-visual__text {
+    margin-top: 6px;
+    text-align: center;
+    font-size: 13px;
+    color: #08D;
 }

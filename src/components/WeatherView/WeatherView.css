@@ -1,9 +1,7 @@
-.weather-container {
+.weather-cont {
     width: 660px;
-    /* background-color: white; */
 }
-
-.weather-container > h1 {
+.weather-cont > h1 {
     font-size: 22px;
     padding-left: 10px;
     margin: 10px 0;
