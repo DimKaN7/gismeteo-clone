@@ -4,14 +4,19 @@ import './App.css';
 
 import Header from '../Header/Header';
 import WeatherView from '../WeatherView/WeatherView';
+import useFetch from '../../services/useFetch';
 
 export default function App() {
+    const [weather, loading] = useFetch(2023469);
     return (
         <div className='app-main-container'>
-            {/* {Header} с поиском и нзванием города */}
             <Header></Header>
-             {/* {WeatherForm} */}
-            <WeatherView></WeatherView>
+            <h1>Weather in Irkutsk</h1>
+            {
+                loading 
+                ?   <div>loading...</div>
+                :   <WeatherView weather={weather}></WeatherView>
+            }
         </div>
     );
 }
