@@ -3,16 +3,11 @@ import React from 'react';
 import './WindSpeed.css';
 
 export default function WindSpeed(props) {
-    // const {speeds} = props;
-    const speeds = [
-        '3-7', '2-7', '2-7', '2-7', 
-        '2-7', '2-7', '2-7', '2-7'
-    ];
+    const {speeds} = props;
     const speedConts = speeds.map((speed, index) => {
-        const background = speed.split('-')[0] < 3 
-                           && speed.split('-')[1] < 8 
-                           ? 'linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(235, 236, 237,1) 30%)' 
-                           : 'linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 235, 170,1) 30%)';
+        const background = speed < 3
+                           ? 'linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(235, 236, 237, 1) 30%)' 
+                           : 'linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 235, 170, 1) 30%)';
 
         return (
             <div key={index} className='wind-speed'>

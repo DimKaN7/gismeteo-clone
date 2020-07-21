@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import './App.css';
 
@@ -8,6 +8,14 @@ import useFetch from '../../services/useFetch';
 
 export default function App() {
     const [weather, loading] = useFetch(2023469);
+    const [selectedTab, setSelectedTab] = useState(0);
+
+    function onTabClick(newTab) {
+        if (newTab != selectedTab) {
+            setSelectedTab(newTab);
+        }
+    }
+
     return (
         <div className='app-main-container'>
             <Header></Header>
@@ -15,7 +23,9 @@ export default function App() {
             {
                 loading 
                 ?   <div>loading...</div>
-                :   <WeatherView weather={weather}></WeatherView>
+                :   <WeatherView weather={weather}
+                                 selectedTab={selectedTab}
+                                 onTabClick={onTabClick}></WeatherView>
             }
         </div>
     );

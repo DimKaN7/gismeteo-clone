@@ -9,14 +9,19 @@ import WindSpeed from './WindSpeed/WindSpeed';
 import Precipitations from './Precipitations/Precipitations';
 
 export default function WeatherInfo(props) {
+    const {weather, selectedTab} = props;
+    const dayWeather = weather.slice(8 * selectedTab, 8 * (selectedTab + 1));
+    const temps = dayWeather.map(w => Math.round(w.main.temp));
+    const speeds = dayWeather.map(w => Math.round(w.wind.speed));
+    const precipitations = dayWeather.map(w => w.rain ? Math.round(w.rain['3h'] * 10)/10 : 0);
 
     return (
         <div className='info-cont'>
             <Times></Times>
             <WeatherIcons></WeatherIcons>
-            <TemperatureBoxes></TemperatureBoxes>
-            <WindSpeed></WindSpeed>
-            <Precipitations></Precipitations>
+            <TemperatureBoxes temps={temps}></TemperatureBoxes>
+            <WindSpeed speeds={speeds}></WindSpeed>
+            <Precipitations precipitations={precipitations}></Precipitations>
         </div>
     );
 }

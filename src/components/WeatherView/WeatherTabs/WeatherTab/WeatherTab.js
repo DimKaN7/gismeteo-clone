@@ -7,7 +7,7 @@ import getImages from '../../../../services/getImage';
 import {titles, daysOfWeek, months} from './labels';
 
 export default function WeahterTab(props) {
-    const {isFirst, title, stat} = props;
+    const {isFirst, isSelected, title, stat, onTabClick} = props.properties;
     const {date, minTemp, maxTemp, precipitations} = stat;
     const dayOfWeek = date.getUTCDay();
     const dayNum = date.getUTCDate();
@@ -18,9 +18,16 @@ export default function WeahterTab(props) {
 
     const minTempTitle = minTemp >= 0 ? `+${minTemp}` : `-${minTemp}`;
     const maxTempTitle = maxTemp >= 0 ? `+${maxTemp}` : `-${maxTemp}`;
+    const className = () => {
+        let name = 'tab-container';
+        if (isFirst) name += ' first';
+        if (isSelected) name += ' selected';
+        return name;
+    }
 
     return (
-        <div className={`tab-container ${isFirst && `first`}`}>
+        <div className={className()}
+             onClick={() => onTabClick(title)}>
             <div className='tab-content'>
                 <span className='tab-content__date'>{`${daysOfWeek[dayOfWeek]}, ${dayNum} ${months[month]}`}</span>
                 <span className='tab-content__day'>{titles[title]}</span>

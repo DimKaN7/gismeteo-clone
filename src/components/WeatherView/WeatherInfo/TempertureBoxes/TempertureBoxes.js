@@ -5,11 +5,7 @@ import './TempertureBoxes.css';
 import TemperatureBox from '../../TempertureBox/TempertureBox';
 
 export default function TempertureBoxes(props) {
-    // const {temps} = props;
-    const temps = [
-        '+18', '+17', '+17', '+19',
-        '+19', '+20', '19', '+17'
-    ];
+    const {temps} = props;
     const tempsNum = temps.map((temp) => {
         return +temp;
     });

@@ -3,11 +3,7 @@ import React from 'react';
 import './Precipitations.css';
 
 export default function Precipitations(props) {
-    // const {precipitations} = props;
-    const precipitations = [
-        '0', '0', '1', '0', 
-        '0', '1', '0', '1'
-    ];
+    const {precipitations} = props;
     const precipitationsConts = precipitations.map((prec, index) => {
         return (
             <div key={index}
