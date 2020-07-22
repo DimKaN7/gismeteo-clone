@@ -4,6 +4,7 @@ import './App.css';
 
 import Header from '../Header/Header';
 import WeatherView from '../WeatherView/WeatherView';
+import Loader from '../Loader/Loader';
 import useFetch from '../../services/useFetch';
 
 export default function App() {
@@ -30,7 +31,7 @@ export default function App() {
             <h1>Weather in Irkutsk</h1>
             {
                 loading 
-                ?   <div>loading...</div>
+                ?   <Loader></Loader>
                 :   <WeatherView weather={weather}
                                  selectedTab={selectedTab}
                                  onTabClick={onTabClick}

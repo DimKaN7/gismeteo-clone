@@ -3,6 +3,7 @@ import React from 'react';
 import './WindSpeed.css';
 
 import {windDirections} from '../../../../services/labels';
+import {round} from '../../../../services/tools';
 
 export default function WindSpeed(props) {
     const {speedInfo} = props;
@@ -21,7 +22,7 @@ export default function WindSpeed(props) {
     });
     const dirDivs = degs.map((d, index) => {
         const getDirection = (degrees) => {
-            return windDirections[Math.round(degrees / 45) % 8];
+            return windDirections[round(degrees / 45, 0) % 8];
         }
 
         return (

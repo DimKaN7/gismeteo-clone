@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './WeatherIcons.css';
 
-import getImages from '../../../../services/getImage';
+import {getImages} from '../../../../services/tools';
 
 export default function WeatherIcons(props) {
     // const {weatherConds} = props;

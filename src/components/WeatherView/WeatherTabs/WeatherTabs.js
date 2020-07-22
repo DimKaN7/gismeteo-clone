@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 import './WeatherTabs.css';
 
+import {round} from '../../../services/tools';
 import WeahterTab from './WeatherTab/WeatherTab';
 
 export default function WeatherTab(props) {
@@ -10,16 +11,16 @@ export default function WeatherTab(props) {
 
     function getDayStat(day) { 
         let dayWeather = weather.slice(8 * day, (day + 1) * 8);
-        const minTemp = Math.round(
+        const minTemp = round(
                             dayWeather.map(w => w.main.temp_min)
                             .reduce((min, value) => Math.min(min, value))
-                        );
-        const maxTemp = Math.round(
+                        , 0);
+        const maxTemp = round(
                             dayWeather.map(w => w.main.temp_max)
                             .reduce((max, value) => Math.max(max, value))
-                        );
-        const precipitations = dayWeather.map(w => w.rain ? Math.round(w.rain['3h'] * 10)/10 : 0)
-                               .reduce((sum, value) => sum + value);
+                        , 0);
+        const precipitations = dayWeather.map(w => w.rain ? round(w.rain['3h'], 1) : 0)
+                               .reduce((sum, value) => round(sum, 1) + round(value, 1));
         const date = new Date(dayWeather[dayWeather.length - 1].dt * 1000);
 
         return {

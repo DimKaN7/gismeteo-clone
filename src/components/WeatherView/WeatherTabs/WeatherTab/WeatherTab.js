@@ -3,7 +3,7 @@ import React from 'react';
 import './WeatherTab.css';
 
 import ValueBox from '../../WeatherInfo/ValueBoxes/ValueBox/ValueBox';
-import getImages from '../../../../services/getImage';
+import {getImages} from '../../../../services/tools';
 import {titles, daysOfWeek, months} from '../../../../services/labels';
 
 export default function WeahterTab(props) {
