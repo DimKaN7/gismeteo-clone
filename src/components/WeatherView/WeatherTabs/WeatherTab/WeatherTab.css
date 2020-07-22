@@ -42,6 +42,7 @@
 .tab-content__date {
     font-size: 17px;
     line-height: 19px;
+    font-weight: 500;
 }
 .tab-content__day {
     font-size: 13px;

@@ -10,10 +10,18 @@ export default function App() {
     const [weather, loading] = useFetch(2023469);
     const [selectedTab, setSelectedTab] = useState(0);
 
-    function onTabClick(newTab) {
+    const onTabClick = (newTab) => {
         if (newTab != selectedTab) {
             setSelectedTab(newTab);
         }
+    }
+    const onPrevClick = () => {
+        const newTab = selectedTab - 1;
+        setSelectedTab(newTab);
+    }
+    const onNextClick = () => {
+        const newTab = selectedTab + 1;
+        setSelectedTab(newTab);
     }
 
     return (
@@ -25,7 +33,9 @@ export default function App() {
                 ?   <div>loading...</div>
                 :   <WeatherView weather={weather}
                                  selectedTab={selectedTab}
-                                 onTabClick={onTabClick}></WeatherView>
+                                 onTabClick={onTabClick}
+                                 onPrevClick={onPrevClick}
+                                 onNextClick={onNextClick}></WeatherView>
             }
         </div>
     );

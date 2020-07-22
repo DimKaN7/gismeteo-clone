@@ -2,9 +2,9 @@ import React from 'react';
 
 import './WeatherTab.css';
 
-import TempertureBox from '../../TempertureBox/TempertureBox';
+import ValueBox from '../../WeatherInfo/ValueBoxes/ValueBox/ValueBox';
 import getImages from '../../../../services/getImage';
-import {titles, daysOfWeek, months} from './labels';
+import {titles, daysOfWeek, months} from '../../../../services/labels';
 
 export default function WeahterTab(props) {
     const {isFirst, isSelected, title, stat, onTabClick} = props.properties;
@@ -13,11 +13,11 @@ export default function WeahterTab(props) {
     const dayNum = date.getUTCDate();
     const month = date.getUTCMonth();
 
-    const context = require.context('../../../../icons/', false, /\.(svg)$/);
+    const context = require.context('../../../../icons/weather/', false, /\.(svg)$/);
     const icons = getImages(context);
 
-    const minTempTitle = minTemp >= 0 ? `+${minTemp}` : `-${minTemp}`;
-    const maxTempTitle = maxTemp >= 0 ? `+${maxTemp}` : `-${maxTemp}`;
+    const minTempTitle = minTemp >= 0 ? `+${minTemp}` : `${minTemp}`;
+    const maxTempTitle = maxTemp >= 0 ? `+${maxTemp}` : `${maxTemp}`;
     const className = () => {
         let name = 'tab-container';
         if (isFirst) name += ' first';
@@ -33,10 +33,10 @@ export default function WeahterTab(props) {
                 <span className='tab-content__day'>{titles[title]}</span>
                 <div className='tab-content__temp'>
                     <div className='tab-content__temp-n'>
-                        <TempertureBox temp={minTempTitle} top={'16'}></TempertureBox>
+                        <ValueBox value={minTempTitle} top={'16'} type={'temp'}></ValueBox>
                     </div>
                     <div className='tab-content__temp-d'>
-                        <TempertureBox temp={maxTempTitle}></TempertureBox>
+                        <ValueBox value={maxTempTitle} type={'temp'}></ValueBox>
                     </div>
                 </div>
             </div>

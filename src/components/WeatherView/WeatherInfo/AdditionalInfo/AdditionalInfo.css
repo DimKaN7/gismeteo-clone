@@ -1,0 +1,53 @@
+.additional-cont {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 5px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+.additional-cont-title {
+    width: 630px;
+    margin: 0 15px;
+    height: 40px;
+    font-size: 17px;
+    font-weight: 500;
+    border-bottom: 1px solid #EBEDEE;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1 1 40px;
+}
+/* --------------------------------------------- */
+.title__button {
+    flex: 1 1 40px;
+    color: #08D;
+    opacity: 0;
+}
+.title__button.visited {
+    opacity: 1;
+}
+.title__button > a {
+    cursor: pointer;
+}
+.title__button > a:hover {
+    color: red;
+}
+.title__button:last-child {
+    text-align: end;
+}
+/* --------------------------------------------- */
+.additional-cont-date {
+    width: 100%;
+    font-size: 16px;
+    padding-top: 5px;
+    padding-left: 15px;
+}
+.additional-cont-date > span:first-child {
+    font-weight: 500;
+}
+.additional-cont-date > span:last-child {
+    color: #777;
+}

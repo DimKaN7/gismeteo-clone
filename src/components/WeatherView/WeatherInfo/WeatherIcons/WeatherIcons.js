@@ -9,7 +9,7 @@ export default function WeatherIcons(props) {
     const weatherConds = [
         'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'
     ];
-    const context = require.context('../../../../icons/', false, /\.(svg)$/);
+    const context = require.context('../../../../icons/weather/', false, /\.(svg)$/);
     const iconsPaths = getImages(context);
     const icons = weatherConds.map((cond, index) => {
         return (

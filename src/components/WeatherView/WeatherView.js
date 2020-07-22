@@ -6,7 +6,7 @@ import WeatherTabs from './WeatherTabs/WeatherTabs';
 import WeatherInfo from './WeatherInfo/WeatherInfo';
 
 export default function WeatherView(props) {
-    const {weather, selectedTab, onTabClick} = props;
+    const {weather, selectedTab, onTabClick, onPrevClick, onNextClick} = props;
     // console.log(weather);
 
     return (
@@ -16,7 +16,9 @@ export default function WeatherView(props) {
                          onTabClick={onTabClick}>
             </WeatherTabs>
             <WeatherInfo weather={weather}
-                         selectedTab={selectedTab}>
+                         selectedTab={selectedTab}
+                         onPrevClick={onPrevClick}
+                         onNextClick={onNextClick}>
             </WeatherInfo>
         </div>
     );
