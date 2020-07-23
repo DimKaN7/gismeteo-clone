@@ -12,7 +12,7 @@ export default function App() {
     const [selectedTab, setSelectedTab] = useState(0);
 
     const onTabClick = (newTab) => {
-        if (newTab != selectedTab) {
+        if (newTab !== selectedTab) {
             setSelectedTab(newTab);
         }
     }

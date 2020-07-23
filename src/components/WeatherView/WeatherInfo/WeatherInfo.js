@@ -8,7 +8,7 @@ import ValueBoxes from './ValueBoxes/ValueBoxes';
 import WindSpeed from './WindSpeed/WindSpeed';
 import Precipitations from './Precipitations/Precipitations';
 import AdditionalInfo from './AdditionalInfo/AdditionalInfo';
-import {round} from '../../../services/tools';
+import {round, getWeatherIcons} from '../../../services/tools';
 
 export default function WeatherInfo(props) {
     const {weather, selectedTab, onPrevClick, onNextClick} = props;
@@ -25,12 +25,14 @@ export default function WeatherInfo(props) {
     const pressures = dayWeather.map(w => round(w.main.pressure / 1.333, 0));
     const humidities = dayWeather.map(w => w.main.humidity);
     const date = new Date(dayWeather[dayWeather.length - 1].dt * 1000);
+    const weatherIcons = dayWeather.map(w => getWeatherIcons(w));
+    // console.log(weatherIcons);
 
     return (
         <div className='info-cont'>
             <div className='info-main'>
                 <Times></Times>
-                <WeatherIcons></WeatherIcons>
+                <WeatherIcons weatherIcons={weatherIcons}></WeatherIcons>
                 <ValueBoxes values={temps}></ValueBoxes>
                 <WindSpeed speedInfo={speedInfo}></WindSpeed>
                 <Precipitations precipitations={precipitations}></Precipitations>

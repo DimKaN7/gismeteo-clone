@@ -9,8 +9,7 @@
 .icon-cont {
     width: 82.5px;
     height: 100%;
-    display: flex;
-    justify-content: center;
+    text-align: center;
 }
 .icon-cont > img {
     width: 75px;

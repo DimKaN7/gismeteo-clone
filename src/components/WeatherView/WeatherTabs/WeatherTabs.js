@@ -2,25 +2,28 @@ import React, {useState} from 'react';
 
 import './WeatherTabs.css';
 
-import {round} from '../../../services/tools';
+import {round, getWeatherIcons} from '../../../services/tools';
 import WeahterTab from './WeatherTab/WeatherTab';
 
 export default function WeatherTab(props) {
     const {weather, selectedTab, onTabClick} = props;
-    // console.log(weather);
+    console.log(weather);
 
     function getDayStat(day) { 
-        let dayWeather = weather.slice(8 * day, (day + 1) * 8);
+        const dayWeather = weather.slice(8 * day, (day + 1) * 8);
+        // const icons = dayWeather.map(w => getWeatherIcon(w));
         const minTemp = round(
                             dayWeather.map(w => w.main.temp_min)
                             .reduce((min, value) => Math.min(min, value))
                         , 0);
         const maxTemp = round(
-                            dayWeather.map(w => w.main.temp_max)
-                            .reduce((max, value) => Math.max(max, value))
+                            dayWeather.map(
+                                w => w.main.temp_max
+                            ).reduce((max, value) => Math.max(max, value))
                         , 0);
-        const precipitations = dayWeather.map(w => w.rain ? round(w.rain['3h'], 1) : 0)
-                               .reduce((sum, value) => round(sum, 1) + round(value, 1));
+        const precipitations = dayWeather.map(w => 
+                 w.rain ? round(w.rain['3h'], 1) : 0
+            ).reduce((sum, value) => round(sum + value, 1));
         const date = new Date(dayWeather[dayWeather.length - 1].dt * 1000);
 
         return {
