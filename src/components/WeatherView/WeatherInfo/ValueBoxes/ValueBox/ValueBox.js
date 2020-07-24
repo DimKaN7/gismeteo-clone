@@ -10,12 +10,15 @@ export default function ValueBox(props) {
     // };
     const color = type === 'temp' ? '#FDEEC1' : 
                   type === 'pressure' ? '#F3DDF5' :
-                  '#84C6F1';
+                  type === 'humidity' ? '#84C6F1' : 
+                  '#F0F0F0';
     const styles = {
         valueBox: {
             backgroundColor: `${color}`,
             position: 'relative',
             top: `${top}px`,
+            fontWeight: `${type === 'temp' ? '500' : '400'}`,
+            fontSize:  `${type === 'temp' ? '22px' : '18px'}`,
         }
     };
 

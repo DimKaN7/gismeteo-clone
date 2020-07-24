@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './WeatherIcons.css';
 
-import {getImages} from '../../../../services/tools';
+import {getImages, getIcon} from '../../../../services/tools';
 
 export default function WeatherIcons(props) {
     const {weatherIcons} = props;
@@ -12,9 +12,7 @@ export default function WeatherIcons(props) {
     const icons = weatherIcons.map((icon, index) => {
         return (
             <div key={index} className='icon-cont'>
-                <img src={iconsPaths.find((path, i, array) => {
-                    if (path.split('/').reverse()[0].split('.')[0] === icon) return true;
-                })}></img>
+                <img src={getIcon(iconsPaths, icon)}></img>
             </div>
         );
     });

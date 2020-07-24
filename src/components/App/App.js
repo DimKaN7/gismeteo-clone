@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import './App.css';
 
@@ -8,7 +8,8 @@ import Loader from '../Loader/Loader';
 import useFetch from '../../services/useFetch';
 
 export default function App() {
-    const [weather, loading] = useFetch(2023469);
+    // const [city, setCity] = useState('Irkutsk');
+    const [weather, loading] = useFetch('Irkutsk');
     const [selectedTab, setSelectedTab] = useState(0);
 
     const onTabClick = (newTab) => {
@@ -24,11 +25,15 @@ export default function App() {
         const newTab = selectedTab + 1;
         setSelectedTab(newTab);
     }
+    // const onSubmit = (event, value) => {
+    //     event.preventDefault();
+    //     setCity(value);
+    // }
 
     return (
         <div className='app-main-container'>
-            <Header></Header>
-            <h1>Weather in Irkutsk</h1>
+        <Header></Header>
+            <h1>{`Weather in Irkutsk`}</h1>
             {
                 loading 
                 ?   <Loader></Loader>

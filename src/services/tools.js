@@ -7,7 +7,7 @@ export function round(value, decimals) {
 }
 
 // костыль, переделать!
-export function getWeatherIcons(weather) {
+export function getWeatherIcon(weather) {
     let result = '';
     const hour = (new Date(weather.dt * 1000)).getHours();
     
@@ -51,4 +51,28 @@ export function getWeatherIcons(weather) {
     }
     
     return result;
+}
+
+export function getMaxFrequentIcon(icons) {
+    let maxFreq = 1;
+    let maxFreqIndex = 2;
+    icons.forEach((icon, index) => {
+        if (index !== 0 && index !== 1 && index !== 7) {
+            let freq = 1;
+            for (let i = index + 1; i < icons.length - 1; i++) {
+                if (icon === icons[i]) freq += 1;
+            }
+            if (freq > maxFreq) {
+                maxFreq = freq;
+                maxFreqIndex = index;
+            }
+        }
+    });
+    return icons[maxFreqIndex];
+}
+
+export function getIcon(icons, iconName) {
+    return icons.find(icon => {
+        if (icon.split('/').reverse()[0].split('.')[0] === iconName) return true;
+    });
 }

@@ -3,18 +3,19 @@ import React from 'react';
 import './WeatherTab.css';
 
 import ValueBox from '../../WeatherInfo/ValueBoxes/ValueBox/ValueBox';
-import {getImages} from '../../../../services/tools';
+import {getImages, getIcon} from '../../../../services/tools';
 import {titles, daysOfWeek, months} from '../../../../services/labels';
 
 export default function WeahterTab(props) {
     const {isFirst, isSelected, title, stat, onTabClick} = props.properties;
-    const {date, minTemp, maxTemp, precipitations} = stat;
+    const {date, minTemp, maxTemp, precipitations, maxFrequentIcon} = stat;
     const dayOfWeek = date.getUTCDay();
     const dayNum = date.getUTCDate();
     const month = date.getUTCMonth();
 
     const context = require.context('../../../../icons/weather/', false, /\.(svg)$/);
     const icons = getImages(context);
+    const icon = getIcon(icons, maxFrequentIcon);
 
     const minTempTitle = minTemp >= 0 ? `+${minTemp}` : `${minTemp}`;
     const maxTempTitle = maxTemp >= 0 ? `+${maxTemp}` : `${maxTemp}`;
@@ -42,9 +43,11 @@ export default function WeahterTab(props) {
             </div>
             <div className='tab-visual'>
                 <div className='tab-visual__icon'>
-                    <img src={icons[4]}></img>
+                    <img src={icon}></img>
                 </div>
-                <div className='tab-visual__text'>{`${precipitations} мм`}</div>
+                <div className='tab-visual__text'>
+                    {`${precipitations === 0 ? '' : `${precipitations} мм`}`}
+                </div>
             </div>
         </div>
     );

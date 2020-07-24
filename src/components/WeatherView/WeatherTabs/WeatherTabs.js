@@ -2,16 +2,16 @@ import React, {useState} from 'react';
 
 import './WeatherTabs.css';
 
-import {round, getWeatherIcons} from '../../../services/tools';
+import {round, getWeatherIcon, getMaxFrequentIcon} from '../../../services/tools';
 import WeahterTab from './WeatherTab/WeatherTab';
 
 export default function WeatherTab(props) {
     const {weather, selectedTab, onTabClick} = props;
-    console.log(weather);
+    // console.log(weather);
 
     function getDayStat(day) { 
         const dayWeather = weather.slice(8 * day, (day + 1) * 8);
-        // const icons = dayWeather.map(w => getWeatherIcon(w));
+        // console.log(dayWeather);
         const minTemp = round(
                             dayWeather.map(w => w.main.temp_min)
                             .reduce((min, value) => Math.min(min, value))
@@ -26,11 +26,15 @@ export default function WeatherTab(props) {
             ).reduce((sum, value) => round(sum + value, 1));
         const date = new Date(dayWeather[dayWeather.length - 1].dt * 1000);
 
+        const icons = dayWeather.map(w => getWeatherIcon(w));
+        const maxFrequentIcon = getMaxFrequentIcon(icons);
+
         return {
             minTemp: minTemp,
             maxTemp: maxTemp,
             precipitations: precipitations,
             date: date,
+            maxFrequentIcon: maxFrequentIcon,
         };
     }
 

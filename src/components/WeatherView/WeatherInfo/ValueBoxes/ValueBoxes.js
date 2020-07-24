@@ -19,11 +19,11 @@ export default function ValueBoxes(props) {
             height = (max - min) * 3 + 30;
             top = (max - valuesNum[index]) * 3;
         }
-        const tempVal = type === 'temp' ? (v >= 0 ? `+${v}` : `${v}`) : v;
+        const value = type === 'temp' ? (v >= 0 ? `+${v}` : `${v}`) : v;
 
         return (
             <div key={index}>
-                <ValueBox value={tempVal}
+                <ValueBox value={value}
                           top={top}
                           type={type}></ValueBox>
             </div>
