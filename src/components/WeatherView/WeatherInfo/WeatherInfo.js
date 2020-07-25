@@ -12,6 +12,7 @@ import {round, getWeatherIcon} from '../../../services/tools';
 
 export default function WeatherInfo(props) {
     const {weather, selectedTab, onPrevClick, onNextClick} = props;
+    // console.log(weather);
     const dayWeather = weather.slice(8 * selectedTab, 8 * (selectedTab + 1));
     // console.log(dayWeather);
     const temps = dayWeather.map(w => round(w.main.temp, 0));
@@ -28,11 +29,12 @@ export default function WeatherInfo(props) {
     const date = new Date(dayWeather[dayWeather.length - 1].dt * 1000);
     const weatherIcons = dayWeather.map(w => getWeatherIcon(w));
     // console.log(weatherIcons);
+    const times = dayWeather.map(w => w.timeLocal);
 
     return (
         <div className='info-cont'>
             <div className='info-main'>
-                <Times></Times>
+                <Times times={times}></Times>
                 <WeatherIcons weatherIcons={weatherIcons}></WeatherIcons>
                 <ValueBoxes values={temps}></ValueBoxes>
                 <WindSpeed speedInfo={speedInfo}></WindSpeed>
@@ -40,12 +42,14 @@ export default function WeatherInfo(props) {
             </div>
             <AdditionalInfo type={'pressure'}
                             date={date}
+                            times={times}
                             values={pressures}
                             selectedTab={selectedTab}
                             onPrevClick={onPrevClick}
                             onNextClick={onNextClick}></AdditionalInfo>
             <AdditionalInfo type={'humidity'}
                             date={date}
+                            times={times}
                             values={humidities}
                             selectedTab={selectedTab}
                             oneLine={true}
@@ -53,6 +57,7 @@ export default function WeatherInfo(props) {
                             onNextClick={onNextClick}></AdditionalInfo>
             <AdditionalInfo type={'visibility: '}
                             date={date}
+                            times={times}
                             values={visibilities}
                             selectedTab={selectedTab}
                             oneLine={true}

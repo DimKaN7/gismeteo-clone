@@ -10,7 +10,7 @@ import {titles, daysOfWeek, months, additionalInfoTitles} from '../../../../serv
 export default function AdditionalInfo(props) {
     const [visited, setVisited] = useState('title__button');
 
-    const {values, date, type, selectedTab, 
+    const {values, date, times, type, selectedTab, 
            oneLine=false, onNextClick, onPrevClick} = props;
     const dayOfWeek = date.getUTCDay();
     const dayNum = date.getUTCDate();
@@ -60,7 +60,7 @@ export default function AdditionalInfo(props) {
                 <span>{dateVal1}</span>
                 <span>{dateVal2}</span>
             </div>
-            <Times></Times>
+            <Times times={times}></Times>
             <ValueBoxes values={values} type={type} oneLine={oneLine}></ValueBoxes>
         </div>
     );

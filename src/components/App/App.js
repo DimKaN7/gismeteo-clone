@@ -5,11 +5,15 @@ import './App.css';
 import Header from '../Header/Header';
 import WeatherView from '../WeatherView/WeatherView';
 import Loader from '../Loader/Loader';
-import useFetch from '../../services/useFetch';
+import {getNeededData} from '../../services/tools';
 
 export default function App() {
-    // const [city, setCity] = useState('Irkutsk');
-    const [weather, loading] = useFetch('Irkutsk');
+    const apiBase = 'http://api.openweathermap.org/data/2.5/forecast?';
+    const apiKey = 'abac1141b934536baef9782b2a0e7327';
+
+    const [city, setCity] = useState('Irkutsk');
+    const [weather, setWeather] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [selectedTab, setSelectedTab] = useState(0);
 
     const onTabClick = (newTab) => {
@@ -25,15 +29,30 @@ export default function App() {
         const newTab = selectedTab + 1;
         setSelectedTab(newTab);
     }
-    // const onSubmit = (event, value) => {
-    //     event.preventDefault();
-    //     setCity(value);
-    // }
+    const onSubmit = (event, value) => {
+        event.preventDefault();
+        setLoading(true);
+        setCity(value);
+    }
+
+    useEffect(() => {
+        setTimeout(() => {
+            fetch(`${apiBase}q=${city}&units=metric&lang=ru&appid=${apiKey}`)
+            .then((response) => response.json())
+            .then((json) => {
+                setWeather(getNeededData(json));
+                setLoading(false);
+            })
+            .catch((err) => {
+                setCity('Irkutsk');
+            });
+        }, 1000);
+    }, [city]);
 
     return (
         <div className='app-main-container'>
-        <Header></Header>
-            <h1>{`Weather in Irkutsk`}</h1>
+        <Header onSubmit={onSubmit}></Header>
+            <h1>{`Weather in ${city.charAt(0).toUpperCase() + city.slice(1)}`}</h1>
             {
                 loading 
                 ?   <Loader></Loader>

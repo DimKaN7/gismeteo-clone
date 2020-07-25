@@ -2,11 +2,9 @@ import React from 'react';
 
 import './Times.css';
 
-export default function Times() {
-    const timesLabels = [
-        '2', '5', '8', '11', '14', '17', '20', '23'
-    ];
-    const times = timesLabels.map((time, index) => {
+export default function Times(props) {
+    const {times} = props;
+    const timesLabels = times.map((time, index) => {
         return (
             <div key={index} className='times-time'>
                 <span>{time}</span>
@@ -17,7 +15,7 @@ export default function Times() {
 
     return (
         <div className='times-cont'>
-            {times}
+            {timesLabels}
         </div>
     );
 }

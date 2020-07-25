@@ -6,7 +6,7 @@
     background-color: #359FFB;
 }
 
-.header-cont > div {
+.header-cont > form {
     height: 100%;
     width: 660px;
     display: flex;

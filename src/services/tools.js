@@ -9,9 +9,9 @@ export function round(value, decimals) {
 // костыль, переделать!
 export function getWeatherIcon(weather) {
     let result = '';
-    const hour = (new Date(weather.dt * 1000)).getHours();
+    const hour = weather.timeLocal;
     
-    if (hour < 8 || hour > 20) result += 'n';
+    if (hour < 8 || hour > 21) result += 'n';
     else result += 'd';
 
     const cloudness = weather.clouds.all;
@@ -20,19 +20,19 @@ export function getWeatherIcon(weather) {
     else if (cloudness >= 71) result = 'c3';
 
     const rsCode = weather.weather[0].id;
-    if (Math.trunc(rsCode/100) === 3) result += '_r1';
+    if (Math.trunc(rsCode/100) === 3) result += result.indexOf('c') === -1 ? '_c1_r1' : '_r1';
     else if (Math.trunc(rsCode/100) === 5) {
-        if (rsCode === 500) result += '_r1';
-        else if (rsCode === 501) result += '_r2';
-        else if (rsCode === 511) result += '_rs2';
-        else result += '_r3';
+        if (rsCode === 500) result += result.indexOf('c') === -1 ? '_c1_r1' : '_r1';
+        else if (rsCode === 501) result += result.indexOf('c') === -1 ? '_c1_r2' : '_r2';
+        else if (rsCode === 511) result += result.indexOf('c') === -1 ? '_c1_rs2' : '_rs2';
+        else result += result.indexOf('c') === -1 ? '_c1_r3' :  '_r3';
     }
     else if (Math.trunc(rsCode/100) === 6) {
-        if (rsCode === 600 || rsCode === 620) result += '_s1';
-        else if (rsCode === 615) result += '_rs1';
-        else if (rsCode === 616) result += '_rs2';
-        else if (rsCode === 601 || rsCode === 611 || rsCode === 611) result += '_s2';
-        else result += '_s3';
+        if (rsCode === 600 || rsCode === 620) result += result.indexOf('c') === -1 ? '_c1_s1' : '_s1';
+        else if (rsCode === 615) result += result.indexOf('c') === -1 ? '_c1_rs1' : '_rs1';
+        else if (rsCode === 616) result += result.indexOf('c') === -1 ? '_c1_rs2' : '_rs2';
+        else if (rsCode === 601 || rsCode === 611 || rsCode === 611) result += result.indexOf('c') === -1 ? '_c1_s2' : '_s2';
+        else result += result.indexOf('c') === -1 ? '_c1_s3' : '_s3';
     }
 
     else if (Math.trunc(rsCode/100) === 2) {
@@ -75,4 +75,46 @@ export function getIcon(icons, iconName) {
     return icons.find(icon => {
         if (icon.split('/').reverse()[0].split('.')[0] === iconName) return true;
     });
+}
+
+export function getTimes(utcDifference) {
+    let startTimeLocal = 0;
+    let startTimeUTC = 0;
+    let startDay = '';
+    if (utcDifference === 2 || utcDifference === 3) {
+        startTimeLocal = utcDifference;
+        startDay = 'tomorrow';
+        startTimeUTC = 0;
+    }
+    else {
+        startTimeLocal = utcDifference % 3 === 0 ? utcDifference : utcDifference % 3;
+        startTimeUTC = 24 + startTimeLocal - utcDifference;
+        startDay = 'today';
+    }
+    // console.log(startTimeLocal);
+    return {
+        startTimeLocal: startTimeLocal,
+        startTimeUTC: startTimeUTC,
+        startDay: startDay,
+    };
+}
+
+export function getNeededData(json) {
+    // получение среза массива погоды с днями завтра-послезавтра-послепослезавтра
+    const utcDifference = json.city.timezone/60/60;
+    let weather = json.list;
+    // console.log(utcDifference);
+    const times = getTimes(utcDifference);
+    const dayNow = (new Date()).getDate();
+    const indexStart = weather.findIndex(
+        w => 
+            (times.startDay === 'tomorrow' 
+            ? (new Date(w.dt * 1000)).getUTCDate() === dayNow + 1
+            : (new Date(w.dt * 1000)).getUTCDate() === dayNow)
+            &&
+            (new Date(w.dt * 1000)).getUTCHours() === times.startTimeUTC
+        );
+    weather = weather.slice(indexStart, indexStart + 24);
+    weather.forEach((w, index) => w['timeLocal'] = (times.startTimeLocal + index * 3) % 24);
+    return weather;
 }
