@@ -79,4 +79,7 @@
     font-size: 13px;
     color: #08D;
     flex: 0 0 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }

@@ -2,13 +2,9 @@
     width: 100%;
     height: 95px;
     display: flex;
-    align-items: center;
-}
-.inner-cont {
-    width: 100%;
-    display: flex;
     flex-direction: row;
+    /* align-items: center; */
 }
-.inner-cont > div {
+.value-boxes-cont > div {
     width: 82.5px;
 }

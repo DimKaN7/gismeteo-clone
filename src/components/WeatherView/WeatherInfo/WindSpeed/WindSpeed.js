@@ -4,6 +4,7 @@ import './WindSpeed.css';
 
 import {windDirections} from '../../../../services/labels';
 import {round} from '../../../../services/tools';
+import AnimatedSpan from '../../AnimatedSpan/AnimatedSpan';
 
 export default function WindSpeed(props) {
     const {speedInfo} = props;
@@ -16,7 +17,9 @@ export default function WindSpeed(props) {
 
         return (
             <div key={index} className='wind-speed'>
-                <div style={{background: background}}>{speed}</div>
+                <div style={{background: background}}>
+                    <AnimatedSpan value={speed} withPlus={false}></AnimatedSpan>
+                </div>
             </div>
         );
     });

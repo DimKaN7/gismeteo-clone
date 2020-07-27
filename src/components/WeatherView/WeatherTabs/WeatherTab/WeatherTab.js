@@ -5,6 +5,7 @@ import './WeatherTab.css';
 import ValueBox from '../../WeatherInfo/ValueBoxes/ValueBox/ValueBox';
 import {getImages, getIcon} from '../../../../services/tools';
 import {titles, daysOfWeek, months} from '../../../../services/labels';
+import AnimatedSpan from '../../AnimatedSpan/AnimatedSpan';
 
 export default function WeahterTab(props) {
     const {isFirst, isSelected, title, stat, onTabClick} = props.properties;
@@ -46,7 +47,8 @@ export default function WeahterTab(props) {
                     <img src={icon}></img>
                 </div>
                 <div className='tab-visual__text'>
-                    {`${precipitations === 0 ? '' : `${precipitations} мм`}`}
+                    <AnimatedSpan value={precipitations} withPlus={false} decimals={1}></AnimatedSpan>
+                    <span>&nbsp;мм</span>
                 </div>
             </div>
         </div>

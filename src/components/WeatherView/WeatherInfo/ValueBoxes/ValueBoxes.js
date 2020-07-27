@@ -9,16 +9,17 @@ export default function ValueBoxes(props) {
     const valuesNum = values.map((v) => {
         return +v;
     });
-    let height = null;
+    const max = Math.max(...valuesNum);
+    const min = Math.min(...valuesNum);
+    const minTop = (95 - ((max - min) * 3 + 30))/2;
+    // console.log(valuesNum);
 
     const valuesBoxes = values.map((v, index) => {
         let top = 0;
         if (!oneLine) {
-            const max = Math.max(...valuesNum);
-            const min = Math.min(...valuesNum);
-            height = (max - min) * 3 + 30;
-            top = (max - valuesNum[index]) * 3;
+            top = minTop + (max - valuesNum[index]) * 3;
         }
+        else top = 32.5;
         const value = type === 'temp' ? (v >= 0 ? `+${v}` : `${v}`) : v;
 
         return (
@@ -32,10 +33,7 @@ export default function ValueBoxes(props) {
 
     return (
         <div className='value-boxes-cont'>
-            <div style={{height: `${height ? `${height}px` : 'auto'}`}}
-                 className='inner-cont'>
-                {valuesBoxes}
-            </div>
+            {valuesBoxes}
         </div>
     );
 }

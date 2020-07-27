@@ -8,5 +8,5 @@ export const windDirections = ['C', 'CВ', 'В', 'ЮВ',
 export const additionalInfoTitles = {
     'pressure': 'Давление, мм рт. ст.',
     'humidity': 'Относительная влажность, %',
-    'visibility: ': 'Видимость',
+    'visibility': 'Видимость, км',
 };

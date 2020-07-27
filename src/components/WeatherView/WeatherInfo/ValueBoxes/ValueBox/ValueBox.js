@@ -1,13 +1,13 @@
 import React from 'react';
+import {useSpring, animated} from 'react-spring';
 
 import './ValueBox.css';
 
+import AnimatedSpan from '../../../AnimatedSpan/AnimatedSpan';
+
 export default function ValueBox(props) {
     const {value, top, type} = props;
-    // const tempColors = {
-    //     warm: '#FDEEC1',
-    //     // ...
-    // };
+    // console.log(+('+21'));
     const color = type === 'temp' ? '#FDEEC1' : 
                   type === 'pressure' ? '#F3DDF5' :
                   type === 'humidity' ? '#84C6F1' : 
@@ -25,7 +25,7 @@ export default function ValueBox(props) {
     return (
         <div className='value-box'
              style={styles.valueBox}>
-            <span>{value}</span>
+            <AnimatedSpan value={value} withPlus={type === 'temp'}></AnimatedSpan>
         </div>
     );
 }

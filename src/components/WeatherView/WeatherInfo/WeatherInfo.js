@@ -25,7 +25,7 @@ export default function WeatherInfo(props) {
     const precipitations = dayWeather.map(w => w.rain ? round(w.rain['3h'], 1) : 0);
     const pressures = dayWeather.map(w => round(w.main.pressure / 1.333, 0));
     const humidities = dayWeather.map(w => w.main.humidity);
-    const visibilities = dayWeather.map(w => round(w.visibility/1000, 0) + ' км');
+    const visibilities = dayWeather.map(w => round(w.visibility/1000, 0));
     const date = new Date(dayWeather[dayWeather.length - 1].dt * 1000);
     const weatherIcons = dayWeather.map(w => getWeatherIcon(w));
     // console.log(weatherIcons);
@@ -55,7 +55,7 @@ export default function WeatherInfo(props) {
                             oneLine={true}
                             onPrevClick={onPrevClick}
                             onNextClick={onNextClick}></AdditionalInfo>
-            <AdditionalInfo type={'visibility: '}
+            <AdditionalInfo type={'visibility'}
                             date={date}
                             times={times}
                             values={visibilities}
