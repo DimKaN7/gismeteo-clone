@@ -12,6 +12,10 @@
     flex-direction: row;
     position: relative;
 }
+.tab-container.loading {
+    padding: 0;
+    cursor: default;
+}
 .tab-container.first {
     margin-left: 0px;
 }
@@ -28,7 +32,7 @@
     height: 15px;
     width: 100%;
 }
-.tab-container:not(.selected):hover {
+.tab-container:not(.selected, .loading):hover {
     box-shadow: 0px 5px 21px -8px #000000;
 }
 /* #################tab-content################# */

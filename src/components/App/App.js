@@ -46,14 +46,20 @@ export default function App() {
             .catch((err) => {
                 setCity('Irkutsk');
             });
-        }, 1000);
+        }, 2000);
     }, [city]);
 
     return (
         <div className='app-main-container'>
         <Header onSubmit={onSubmit}></Header>
             <h1>{`Weather in ${city.charAt(0).toUpperCase() + city.slice(1)}`}</h1>
-            {
+            <WeatherView weather={weather}
+                         loading={loading}
+                         selectedTab={selectedTab}
+                         onTabClick={onTabClick}
+                         onPrevClick={onPrevClick}
+                         onNextClick={onNextClick}></WeatherView>
+            {/* {
                 loading 
                 ?   <Loader></Loader>
                 :   <WeatherView weather={weather}
@@ -61,7 +67,7 @@ export default function App() {
                                  onTabClick={onTabClick}
                                  onPrevClick={onPrevClick}
                                  onNextClick={onNextClick}></WeatherView>
-            }
+            } */}
         </div>
     );
 }

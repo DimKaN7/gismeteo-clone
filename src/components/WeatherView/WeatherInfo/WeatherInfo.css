@@ -12,3 +12,13 @@
     display: flex;
     flex-direction: column;
 }
+.info-main.loading {
+    height: 411px;
+}
+.info-additional {
+    background-color: white;
+    border-radius: 5px;
+    width: 100%;
+    height: 215px;
+    margin-top: 20px;
+}

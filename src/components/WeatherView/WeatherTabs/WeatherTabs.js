@@ -6,7 +6,7 @@ import {round, getWeatherIcon, getMaxFrequentIcon} from '../../../services/tools
 import WeahterTab from './WeatherTab/WeatherTab';
 
 export default function WeatherTab(props) {
-    const {weather, selectedTab, onTabClick} = props;
+    const {weather, loading, selectedTab, onTabClick} = props;
     // console.log(weather);
 
     function getDayStat(day) { 
@@ -41,13 +41,14 @@ export default function WeatherTab(props) {
     const tabs = [0, 1, 2].map((el) => {
         const properties = {
             isFirst: el === 0 ? true : false,
-            isSelected: el === selectedTab ? true : false,
+            isSelected: loading ? false : (el === selectedTab ? true : false),
             title: el,
-            stat: getDayStat(el),
+            stat: loading ? null : getDayStat(el),
             onTabClick: onTabClick,
         };
         return  <WeahterTab key={el}
-                            properties={properties}>
+                            properties={properties}
+                            loading={loading}>
                 </WeahterTab>
     });
 
