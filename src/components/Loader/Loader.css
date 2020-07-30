@@ -5,3 +5,18 @@
     justify-content: center;
     align-items: center;
 }
+.loader-cont > img {
+    width: 100px;
+    animation: rotation 1s infinite linear;
+}
+@keyframes rotation {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.5) rotate(180deg);
+    }
+    100% {
+        transform: scale(1) rotate(180deg);
+    }
+} 

@@ -18,15 +18,9 @@ export default function WeatherInfo(props) {
                 <div className='info-main loading'>
                     <Loader></Loader>
                 </div>
-                <div className='info-additional'>
-                    <Loader></Loader>
-                </div>
-                <div className='info-additional'>
-                    <Loader></Loader>
-                </div>
-                <div className='info-additional'>
-                    <Loader></Loader>
-                </div>
+                <div className='info-additional'></div>
+                <div className='info-additional'></div>
+                <div className='info-additional'></div>
             </div>
         );
     }
@@ -47,7 +41,7 @@ export default function WeatherInfo(props) {
         const humidities = dayWeather.map(w => w.main.humidity);
         const visibilities = dayWeather.map(w => round(w.visibility/1000, 0));
         const date = new Date(dayWeather[dayWeather.length - 1].dt * 1000);
-        const weatherIcons = dayWeather.map(w => getWeatherIcon(w));
+        const weatherIcons = weather.map(w => getWeatherIcon(w));
         // console.log(weatherIcons);
         const times = dayWeather.map(w => w.timeLocal);
 
@@ -55,7 +49,7 @@ export default function WeatherInfo(props) {
             <div className='info-cont'>
                 <div className='info-main'>
                     <Times times={times}></Times>
-                    <WeatherIcons weatherIcons={weatherIcons}></WeatherIcons>
+                    <WeatherIcons weatherIcons={weatherIcons} selectedTab={selectedTab}></WeatherIcons>
                     <ValueBoxes values={temps}></ValueBoxes>
                     <WindSpeed speedInfo={speedInfo}></WindSpeed>
                     <Precipitations precipitations={precipitations}></Precipitations>

@@ -8,6 +8,7 @@ import AnimatedSpan from '../../AnimatedSpan/AnimatedSpan';
 
 export default function WindSpeed(props) {
     const {speedInfo} = props;
+    
     const speeds = speedInfo.map(s => s.speed);
     const degs = speedInfo.map(s => s.deg);
     const speedDivs = speeds.map((speed, index) => {

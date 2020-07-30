@@ -1,19 +1,20 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import {useTransition, animated} from 'react-spring';
 
 import './WeatherIcons.css';
 
-import {getImages, getIcon} from '../../../../services/tools';
+import {chunkArray} from '../../../../services/tools';
+import WeatherIcon from './WeatherIcon/WeatherIcon';
 
 export default function WeatherIcons(props) {
-    const {weatherIcons} = props;
-    const context = require.context('../../../../icons/weather/', false, /\.(svg)$/);
-    const iconsPaths = getImages(context);
-    // console.log(iconsPaths);
-    const icons = weatherIcons.map((icon, index) => {
+    const {weatherIcons, selectedTab} = props;
+    const hoursWeatherIcons = chunkArray(weatherIcons);
+
+    const icons = hoursWeatherIcons.map((icons, index) => {
         return (
-            <div key={index} className='icon-cont'>
-                <img src={getIcon(iconsPaths, icon)}></img>
-            </div>
+            <WeatherIcon key={index} 
+                         selectedTab={selectedTab}
+                         weatherIcons={icons}></WeatherIcon>
         );
     });
 

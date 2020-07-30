@@ -118,3 +118,13 @@ export function getNeededData(json) {
     weather.forEach((w, index) => w['timeLocal'] = (times.startTimeLocal + index * 3) % 24);
     return weather;
 }
+
+export function chunkArray(array) {
+    let result = [];
+    for (let i = 0; i < 8; i++) {
+        let temp = [];
+        for (let j = 0; j < 3; j++) temp[j] = array[i + 8 * j];
+        result.push(temp);
+    }
+    return result;
+}

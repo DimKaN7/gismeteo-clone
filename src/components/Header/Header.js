@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 
 import './Header.css';
+
+// import data from '../../services/city.list.min.json';
 
 export default function Header(props) {
     const {onSubmit} = props;
@@ -10,14 +12,21 @@ export default function Header(props) {
         setValue(event.target.value);
     }
 
+    // useEffect(() => {
+    //     // console.log(data.name);
+    // }, []);
+
     return (
         <div className='header-cont'>
             <form onSubmit={(event) => {setValue(''); onSubmit(event, value)}}>
                 <input className='header-cont__city' 
                        type='text'
-                       placeholder='City'
+                       placeholder='Search city'
                        onChange={onChange}
                        value={value} />
+                {/* <div className='search-results'>
+
+                </div> */}
             </form>
         </div>
     );

@@ -59,15 +59,6 @@ export default function App() {
                          onTabClick={onTabClick}
                          onPrevClick={onPrevClick}
                          onNextClick={onNextClick}></WeatherView>
-            {/* {
-                loading 
-                ?   <Loader></Loader>
-                :   <WeatherView weather={weather}
-                                 selectedTab={selectedTab}
-                                 onTabClick={onTabClick}
-                                 onPrevClick={onPrevClick}
-                                 onNextClick={onNextClick}></WeatherView>
-            } */}
         </div>
     );
 }

@@ -9,13 +9,13 @@ import AnimatedSpan from '../../AnimatedSpan/AnimatedSpan';
 import Loader from '../../../Loader/Loader';
 
 export default function WeahterTab(props) {
-    console.log(props);
+    // console.log(props);
     if (props.loading) {
         let name = 'tab-container loading';
         if (props.properties.isFirst) name += ' first';
         return (
             <div className={name}>
-                <Loader></Loader>
+                {/* <Loader></Loader> */}
             </div>
         );
     }

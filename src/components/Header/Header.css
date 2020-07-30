@@ -5,21 +5,30 @@
     height: 40px;
     background-color: #359FFB;
 }
-
 .header-cont > form {
     height: 100%;
     width: 660px;
     display: flex;
     align-items: center;
 }
-
 .header-cont__city {
     outline: none;
     height: 30px;
     border: 1px solid white;
     border-radius: 5px;
     padding: 0 10px;
+    width: 213px;
 }
 .header-cont__city::placeholder {
     color: #359FFB;
+}
+.search-results {
+    position: absolute;
+    top: 32px;
+    width: 213px;
+    height: 100px;
+    overflow-y: scroll;
+    background-color: white;
+    opacity: 0.5;
+    z-index: 10;
 }

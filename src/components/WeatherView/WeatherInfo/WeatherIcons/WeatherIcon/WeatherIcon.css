@@ -1,0 +1,13 @@
+.icon-cont {
+    /* position: absolute; */
+    width: 82.5px;
+    text-align: center;
+}
+.anim-cont {
+    position: absolute;
+    width: initial;
+    height: initial;
+}
+.anim-cont > img {
+    width: 75px;
+}

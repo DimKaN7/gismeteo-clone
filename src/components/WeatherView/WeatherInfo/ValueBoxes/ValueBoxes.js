@@ -12,7 +12,7 @@ export default function ValueBoxes(props) {
     const max = Math.max(...valuesNum);
     const min = Math.min(...valuesNum);
     const minTop = (95 - ((max - min) * 3 + 30))/2;
-    // console.log(valuesNum);
+    // console.log(values);
 
     const valuesBoxes = values.map((v, index) => {
         let top = 0;
