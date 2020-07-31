@@ -4,6 +4,7 @@
     flex-direction: column;
     margin-top: 10px;
     background-color: #EBEDEE;
+    position: relative;
 }
 .info-main {
     width: 100%;
@@ -21,4 +22,17 @@
     width: 100%;
     height: 215px;
     margin-top: 20px;
+}
+
+.connection-cont {
+    position: absolute;
+    width: 100%;
+    height: 17px;
+    top: -10px;
+}
+.connection {
+    position: relative;
+    width: 213.33px;
+    height: 100%;
+    background-color: white;
 }

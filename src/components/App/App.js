@@ -4,7 +4,6 @@ import './App.css';
 
 import Header from '../Header/Header';
 import WeatherView from '../WeatherView/WeatherView';
-import Loader from '../Loader/Loader';
 import {getNeededData} from '../../services/tools';
 
 export default function App() {
@@ -40,6 +39,7 @@ export default function App() {
             fetch(`${apiBase}q=${city}&units=metric&lang=ru&appid=${apiKey}`)
             .then((response) => response.json())
             .then((json) => {
+                // console.log(json);
                 setWeather(getNeededData(json));
                 setLoading(false);
             })
@@ -47,6 +47,7 @@ export default function App() {
                 setCity('Irkutsk');
             });
         }, 2000);
+        setSelectedTab(0);
     }, [city]);
 
     return (

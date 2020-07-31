@@ -10,8 +10,12 @@ export default function AnimatedSpan(props) {
 
     const animProps = useSpring(
         {
-            config: {duration: 400},
-            to: {number: +value}, from: {number: 0},
+            from: {number: 0},
+            to: {number: +value}, 
+            config: {
+                duration: 400,
+                easing: t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
+            },
         }
     );
 

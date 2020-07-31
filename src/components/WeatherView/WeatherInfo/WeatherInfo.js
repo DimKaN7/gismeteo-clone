@@ -1,4 +1,5 @@
 import React from 'react';
+import {useSpring, animated} from 'react-spring';
 
 import './WeatherInfo.css';
 
@@ -12,7 +13,21 @@ import {round, getWeatherIcon} from '../../../services/tools';
 import Loader from '../../Loader/Loader';
 
 export default function WeatherInfo(props) {
-    if (props.loading) {
+    const {weather, loading, selectedTab, onPrevClick, onNextClick} = props;
+    // console.log(selectedTab);
+    const animProps = useSpring({
+        from: {
+            transform: `translate3d(0px, 0px, 0px)`,
+        },
+        to: {
+            transform: `translate3d(${selectedTab * 223 + round(selectedTab/3, 0)}px, 0px, 0px)`,
+        },
+        config: {
+            duration: 400,
+            easing: t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
+        }
+    });
+    if (loading) {
         return (
             <div className='info-cont'>
                 <div className='info-main loading'>
@@ -25,7 +40,6 @@ export default function WeatherInfo(props) {
         );
     }
     else {
-        const {weather, selectedTab, onPrevClick, onNextClick} = props;
         // console.log(weather);
         const dayWeather = weather.slice(8 * selectedTab, 8 * (selectedTab + 1));
         // console.log(dayWeather);
@@ -47,6 +61,9 @@ export default function WeatherInfo(props) {
 
         return (
             <div className='info-cont'>
+                <div className='connection-cont'>
+                    <animated.div className='connection' style={animProps}></animated.div>
+                </div>
                 <div className='info-main'>
                     <Times times={times}></Times>
                     <WeatherIcons weatherIcons={weatherIcons} selectedTab={selectedTab}></WeatherIcons>

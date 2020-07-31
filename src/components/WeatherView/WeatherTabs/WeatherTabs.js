@@ -40,7 +40,6 @@ export default function WeatherTab(props) {
 
     const tabs = [0, 1, 2].map((el) => {
         const properties = {
-            isFirst: el === 0 ? true : false,
             isSelected: loading ? false : (el === selectedTab ? true : false),
             title: el,
             stat: loading ? null : getDayStat(el),

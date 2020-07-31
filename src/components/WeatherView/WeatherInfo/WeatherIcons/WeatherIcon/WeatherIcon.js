@@ -18,7 +18,10 @@ export default function WeatherIcon(props) {
         from: { opacity: 0 },
         enter: { opacity: 1 },
         leave: { opacity: 0 },
-        config: {duration: 400}
+        config: {
+            duration: 400,
+            easing: t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
+        }
     });
     const animCont = transitions.map(({item, key, props}) => 
         <animated.div key={key} className='anim-cont' style={props}>

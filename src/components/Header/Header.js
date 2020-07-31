@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 import './Header.css';
 
@@ -11,10 +11,6 @@ export default function Header(props) {
     const onChange = (event) => {
         setValue(event.target.value);
     }
-
-    // useEffect(() => {
-    //     // console.log(data.name);
-    // }, []);
 
     return (
         <div className='header-cont'>

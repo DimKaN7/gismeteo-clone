@@ -6,7 +6,6 @@ import ValueBox from '../../WeatherInfo/ValueBoxes/ValueBox/ValueBox';
 import {getImages, getIcon} from '../../../../services/tools';
 import {titles, daysOfWeek, months} from '../../../../services/labels';
 import AnimatedSpan from '../../AnimatedSpan/AnimatedSpan';
-import Loader from '../../../Loader/Loader';
 
 export default function WeahterTab(props) {
     // console.log(props);
@@ -15,12 +14,11 @@ export default function WeahterTab(props) {
         if (props.properties.isFirst) name += ' first';
         return (
             <div className={name}>
-                {/* <Loader></Loader> */}
             </div>
         );
     }
     else {
-        const {isFirst, isSelected, title, stat, onTabClick} = props.properties;
+        const {isSelected, title, stat, onTabClick} = props.properties;
         const {date, minTemp, maxTemp, precipitations, maxFrequentIcon} = stat;
         const dayOfWeek = date.getUTCDay();
         const dayNum = date.getUTCDate();
@@ -34,7 +32,6 @@ export default function WeahterTab(props) {
         const maxTempTitle = maxTemp > 0 ? `+${maxTemp}` : `${maxTemp}`;
         const className = () => {
             let name = 'tab-container';
-            if (isFirst) name += ' first';
             if (isSelected) name += ' selected';
             return name;
         }
@@ -47,7 +44,7 @@ export default function WeahterTab(props) {
                     <span className='tab-content__day'>{titles[title]}</span>
                     <div className='tab-content__temp'>
                         <div className='tab-content__temp-n'>
-                            <ValueBox value={minTempTitle} top={'16'} type={'temp'}></ValueBox>
+                            <ValueBox value={minTempTitle} top={'16'} type={'temp'} topFixed={true}></ValueBox>
                         </div>
                         <div className='tab-content__temp-d'>
                             <ValueBox value={maxTempTitle} type={'temp'}></ValueBox>

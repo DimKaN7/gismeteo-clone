@@ -87,35 +87,39 @@ export function getTimes(utcDifference) {
         startTimeUTC = 0;
     }
     else {
-        startTimeLocal = utcDifference % 3 === 0 ? utcDifference : utcDifference % 3;
+        startTimeLocal = utcDifference % 3 === 0 ? 3 : utcDifference % 3;
         startTimeUTC = 24 + startTimeLocal - utcDifference;
         startDay = 'today';
     }
-    // console.log(startTimeLocal);
     return {
         startTimeLocal: startTimeLocal,
         startTimeUTC: startTimeUTC,
         startDay: startDay,
     };
 }
-
+// error is here
 export function getNeededData(json) {
     // получение среза массива погоды с днями завтра-послезавтра-послепослезавтра
     const utcDifference = json.city.timezone/60/60;
     let weather = json.list;
-    // console.log(utcDifference);
     const times = getTimes(utcDifference);
     const dayNow = (new Date()).getDate();
+    const monthNow = (new Date()).getMonth();
     const indexStart = weather.findIndex(
         w => 
             (times.startDay === 'tomorrow' 
-            ? (new Date(w.dt * 1000)).getUTCDate() === dayNow + 1
-            : (new Date(w.dt * 1000)).getUTCDate() === dayNow)
+            ? 
+                ((dayNow === 28 || dayNow === 29 || dayNow === 30 || dayNow === 31)
+                && (new Date(Date.now() + 86400000)).getMonth() === monthNow + 1 )
+                ? (new Date(w.dt * 1000)).getUTCDate() === 1
+                : (new Date(w.dt * 1000)).getUTCDate() === dayNow + 1
+            :   (new Date(w.dt * 1000)).getUTCDate() === dayNow)
             &&
             (new Date(w.dt * 1000)).getUTCHours() === times.startTimeUTC
         );
     weather = weather.slice(indexStart, indexStart + 24);
     weather.forEach((w, index) => w['timeLocal'] = (times.startTimeLocal + index * 3) % 24);
+    // console.log(weather);
     return weather;
 }
 
