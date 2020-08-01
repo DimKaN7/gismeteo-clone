@@ -5,7 +5,7 @@ import './Header.css';
 // import data from '../../services/city.list.min.json';
 
 export default function Header(props) {
-    const {onSubmit} = props;
+    const {onSubmit, loading} = props;
     const [value, setValue] = useState('');
 
     const onChange = (event) => {
@@ -19,7 +19,8 @@ export default function Header(props) {
                        type='text'
                        placeholder='Search city'
                        onChange={onChange}
-                       value={value} />
+                       value={value}
+                       disabled={loading} />
                 {/* <div className='search-results'>
 
                 </div> */}

@@ -1,4 +1,5 @@
 import React from 'react';
+import {useSpring, animated} from 'react-spring';
 
 import './WeatherTab.css';
 
@@ -8,17 +9,22 @@ import {titles, daysOfWeek, months} from '../../../../services/labels';
 import AnimatedSpan from '../../AnimatedSpan/AnimatedSpan';
 
 export default function WeahterTab(props) {
-    // console.log(props);
+    const {isSelected} = props.properties;
+    const animProps = useSpring({
+        config: {
+            duration: 400,
+            easing: t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
+        },
+        height: isSelected ? '120px' : '105px',
+    });
     if (props.loading) {
-        let name = 'tab-container loading';
-        if (props.properties.isFirst) name += ' first';
         return (
-            <div className={name}>
+            <div className='tab-container loading'>
             </div>
         );
     }
     else {
-        const {isSelected, title, stat, onTabClick} = props.properties;
+        const {title, stat, onTabClick} = props.properties;
         const {date, minTemp, maxTemp, precipitations, maxFrequentIcon} = stat;
         const dayOfWeek = date.getUTCDay();
         const dayNum = date.getUTCDate();
@@ -37,30 +43,31 @@ export default function WeahterTab(props) {
         }
 
         return (
-            <div className={className()}
-                onClick={() => onTabClick(title)}>
-                <div className='tab-content'>
-                    <span className='tab-content__date'>{`${daysOfWeek[dayOfWeek]}, ${dayNum} ${months[month]}`}</span>
-                    <span className='tab-content__day'>{titles[title]}</span>
-                    <div className='tab-content__temp'>
-                        <div className='tab-content__temp-n'>
-                            <ValueBox value={minTempTitle} top={'16'} type={'temp'} topFixed={true}></ValueBox>
+                <animated.div className={className()}
+                    onClick={() => onTabClick(title)}
+                    style={animProps}>
+                    <div className='tab-content'>
+                        <span className='tab-content__date'>{`${daysOfWeek[dayOfWeek]}, ${dayNum} ${months[month]}`}</span>
+                        <span className='tab-content__day'>{titles[title]}</span>
+                        <div className='tab-content__temp'>
+                            <div className='tab-content__temp-n'>
+                                <ValueBox value={minTempTitle} top={'16'} type={'temp'} topFixed={true}></ValueBox>
+                            </div>
+                            <div className='tab-content__temp-d'>
+                                <ValueBox value={maxTempTitle} type={'temp'}></ValueBox>
+                            </div>
                         </div>
-                        <div className='tab-content__temp-d'>
-                            <ValueBox value={maxTempTitle} type={'temp'}></ValueBox>
+                    </div>
+                    <div className='tab-visual'>
+                        <div className='tab-visual__icon'>
+                            <img src={icon}></img>
+                        </div>
+                        <div className='tab-visual__text'>
+                            <AnimatedSpan value={precipitations} withPlus={false} decimals={1}></AnimatedSpan>
+                            <span>&nbsp;мм</span>
                         </div>
                     </div>
-                </div>
-                <div className='tab-visual'>
-                    <div className='tab-visual__icon'>
-                        <img src={icon}></img>
-                    </div>
-                    <div className='tab-visual__text'>
-                        <AnimatedSpan value={precipitations} withPlus={false} decimals={1}></AnimatedSpan>
-                        <span>&nbsp;мм</span>
-                    </div>
-                </div>
-            </div>
+                </animated.div>
         );
     }
 }

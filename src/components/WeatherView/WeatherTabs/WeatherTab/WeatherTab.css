@@ -10,13 +10,13 @@
     display: flex;
     flex-direction: row;
     position: relative;
+    will-change: height;
 }
 .tab-container.loading {
     padding: 0;
     cursor: default;
 }
 .tab-container.selected {
-    border-radius: 5px 5px 0px 0px;
     cursor: default;
 } 
 .tab-container:not(.selected):not(.loading):hover {
@@ -24,6 +24,7 @@
 }
 /* #################tab-content################# */
 .tab-content {
+    max-height: 93px;
     width: 120px;
     display: flex;
     flex-direction: column;
@@ -51,6 +52,7 @@
 }
 /*#################tab-visual#################  */
 .tab-visual {
+    max-height: 93px;
     margin: 0 5px;
     flex: 1 0 auto;
     display: flex;

@@ -44,6 +44,7 @@ export default function App() {
                 setLoading(false);
             })
             .catch((err) => {
+                alert('City not found! Switching to Irkutsk.');
                 setCity('Irkutsk');
             });
         }, 2000);
@@ -52,7 +53,7 @@ export default function App() {
 
     return (
         <div className='app-main-container'>
-        <Header onSubmit={onSubmit}></Header>
+        <Header onSubmit={onSubmit} loading={loading}></Header>
             <h1>{`Weather in ${city.charAt(0).toUpperCase() + city.slice(1)}`}</h1>
             <WeatherView weather={weather}
                          loading={loading}

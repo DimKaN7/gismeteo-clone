@@ -81,15 +81,22 @@ export function getTimes(utcDifference) {
     let startTimeLocal = 0;
     let startTimeUTC = 0;
     let startDay = '';
-    if (utcDifference === 2 || utcDifference === 3) {
-        startTimeLocal = utcDifference;
-        startDay = 'tomorrow';
-        startTimeUTC = 0;
+    if (utcDifference > 0) {
+        if (utcDifference === 2 || utcDifference === 3) {
+            startTimeLocal = utcDifference;
+            startDay = 'tomorrow';
+            startTimeUTC = 0;
+        }
+        else {
+            startTimeLocal = utcDifference % 3 === 0 ? 3 : utcDifference % 3;
+            startTimeUTC = 24 + startTimeLocal - utcDifference;
+            startDay = 'today';
+        }
     }
     else {
-        startTimeLocal = utcDifference % 3 === 0 ? 3 : utcDifference % 3;
-        startTimeUTC = 24 + startTimeLocal - utcDifference;
-        startDay = 'today';
+        startTimeLocal = 3 - (-utcDifference) % 3;
+        startTimeUTC = -utcDifference + startTimeLocal;
+        startDay = 'tomorrow';
     }
     return {
         startTimeLocal: startTimeLocal,
@@ -109,11 +116,12 @@ export function getNeededData(json) {
         w => 
             (times.startDay === 'tomorrow' 
             ? 
-                ((dayNow === 28 || dayNow === 29 || dayNow === 30 || dayNow === 31)
-                && (new Date(Date.now() + 86400000)).getMonth() === monthNow + 1 )
+                (dayNow > 27 && (new Date(Date.now() + 86400000)).getMonth() === monthNow + 1)
                 ? (new Date(w.dt * 1000)).getUTCDate() === 1
                 : (new Date(w.dt * 1000)).getUTCDate() === dayNow + 1
-            :   (new Date(w.dt * 1000)).getUTCDate() === dayNow)
+            :   
+                (new Date(w.dt * 1000)).getUTCDate() === dayNow
+            )
             &&
             (new Date(w.dt * 1000)).getUTCHours() === times.startTimeUTC
         );
