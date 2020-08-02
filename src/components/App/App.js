@@ -5,6 +5,7 @@ import './App.css';
 import Header from '../Header/Header';
 import WeatherView from '../WeatherView/WeatherView';
 import {getNeededData} from '../../services/tools';
+import Footer from '../Footer/Footer';
 
 export default function App() {
     const apiBase = 'https://api.openweathermap.org/data/2.5/forecast?';
@@ -72,6 +73,7 @@ export default function App() {
                          onTabClick={onTabClick}
                          onPrevClick={onPrevClick}
                          onNextClick={onNextClick}></WeatherView>
+        <Footer></Footer>
         </div>
     );
 }

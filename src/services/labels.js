@@ -10,3 +10,9 @@ export const additionalInfoTitles = {
     'humidity': 'Относительная влажность, %',
     'visibility': 'Видимость, км',
 };
+export const links = [
+    'https://openweathermap.org/',
+    'https://reactjs.org/',
+    'https://github.com/DimKaN7',
+    'https://vk.com/dimka_n7',
+];
