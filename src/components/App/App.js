@@ -7,7 +7,7 @@ import WeatherView from '../WeatherView/WeatherView';
 import {getNeededData} from '../../services/tools';
 
 export default function App() {
-    const apiBase = 'http://api.openweathermap.org/data/2.5/forecast?';
+    const apiBase = 'https://api.openweathermap.org/data/2.5/forecast?';
     const apiKey = 'abac1141b934536baef9782b2a0e7327';
 
     const [city, setCity] = useState('Irkutsk');
