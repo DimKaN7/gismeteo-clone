@@ -11,7 +11,6 @@ export default function WeatherTab(props) {
 
     function getDayStat(day) { 
         const dayWeather = weather.slice(8 * day, (day + 1) * 8);
-        // console.log(dayWeather);
         const minTemp = round(
                             dayWeather.map(w => w.main.temp_min)
                             .reduce((min, value) => Math.min(min, value))

@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 
 import './Header.css';
 
-// import data from '../../services/city.list.min.json';
 
 export default function Header(props) {
     const {onSubmit, loading} = props;
@@ -21,9 +20,6 @@ export default function Header(props) {
                        onChange={onChange}
                        value={value}
                        disabled={loading} />
-                {/* <div className='search-results'>
-
-                </div> */}
             </form>
         </div>
     );

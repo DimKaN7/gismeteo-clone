@@ -4,7 +4,6 @@ import './App.css';
 
 import Header from '../Header/Header';
 import WeatherView from '../WeatherView/WeatherView';
-import Footer from '../Footer/Footer';
 import {getNeededData} from '../../services/tools';
 
 export default function App() {
@@ -55,7 +54,6 @@ export default function App() {
     }, [city]);
 
     useEffect(() => {
-        // console.log(showError);
         setTimeout(() => {
             setShowError(false);
         }, 2000);

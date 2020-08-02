@@ -104,7 +104,7 @@ export function getTimes(utcDifference) {
         startDay: startDay,
     };
 }
-// error is here
+
 export function getNeededData(json) {
     // получение среза массива погоды с днями завтра-послезавтра-послепослезавтра
     const utcDifference = json.city.timezone/60/60;
@@ -127,7 +127,6 @@ export function getNeededData(json) {
         );
     weather = weather.slice(indexStart, indexStart + 24);
     weather.forEach((w, index) => w['timeLocal'] = (times.startTimeLocal + index * 3) % 24);
-    // console.log(weather);
     return weather;
 }
 

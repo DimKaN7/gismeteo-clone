@@ -7,7 +7,6 @@ import WeatherInfo from './WeatherInfo/WeatherInfo';
 
 export default function WeatherView(props) {
     const {weather, loading, selectedTab, onTabClick, onPrevClick, onNextClick} = props;
-    // console.log(weather);
 
     return (
         <div className='weather-cont'>
