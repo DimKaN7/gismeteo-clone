@@ -23,16 +23,3 @@
     height: 215px;
     margin-top: 20px;
 }
-
-.connection-cont {
-    position: absolute;
-    width: 100%;
-    height: 17px;
-    top: -10px;
-}
-.connection {
-    position: relative;
-    width: 213.33px;
-    height: 100%;
-    background-color: white;
-}

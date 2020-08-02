@@ -25,12 +25,14 @@
     flex: 1 1 40px;
     color: #08D;
     opacity: 0;
+    will-change: opacity;
 }
 .title__button.visited {
     opacity: 1;
 }
 .title__button > a {
     cursor: pointer;
+    will-change: color;
 }
 .title__button > a:hover {
     color: red;

@@ -11,7 +11,7 @@ export function getWeatherIcon(weather) {
     let result = '';
     const hour = weather.timeLocal;
     
-    if (hour < 8 || hour > 21) result += 'n';
+    if (hour < 7 || hour > 21) result += 'n';
     else result += 'd';
 
     const cloudness = weather.clouds.all;

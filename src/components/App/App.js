@@ -4,6 +4,7 @@ import './App.css';
 
 import Header from '../Header/Header';
 import WeatherView from '../WeatherView/WeatherView';
+import Footer from '../Footer/Footer';
 import {getNeededData} from '../../services/tools';
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
     const [weather, setWeather] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedTab, setSelectedTab] = useState(0);
+    const [showError, setShowError] = useState(false);
 
     const onTabClick = (newTab) => {
         if (newTab !== selectedTab) {
@@ -44,15 +46,26 @@ export default function App() {
                 setLoading(false);
             })
             .catch((err) => {
-                alert('City not found! Switching to Irkutsk.');
+                // alert('City not found! Switching to Irkutsk.');
+                setShowError(true);
                 setCity('Irkutsk');
             });
         }, 2000);
         setSelectedTab(0);
     }, [city]);
 
+    useEffect(() => {
+        // console.log(showError);
+        setTimeout(() => {
+            setShowError(false);
+        }, 2000);
+    }, [showError]);
+
     return (
         <div className='app-main-container'>
+        {showError && 
+            <div className='error-cont'>City not found, switching to Irkutsk</div>
+        }
         <Header onSubmit={onSubmit} loading={loading}></Header>
             <h1>{`Weather in ${city.charAt(0).toUpperCase() + city.slice(1)}`}</h1>
             <WeatherView weather={weather}

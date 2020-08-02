@@ -29,5 +29,6 @@
     justify-content: center;
     padding-bottom: 5px;
     font-size: 15px;
+    will-change: color;
     transition: color 0.4s ease-in-out;
 }

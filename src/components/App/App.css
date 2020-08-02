@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 .app-main-container > h1 {
     width: 660px;
@@ -10,4 +11,17 @@
     padding-left: 10px;
     margin: 10px 0;
     position: relative;
+}
+.error-cont {
+    position: absolute;
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    opacity: 50%;
+    top: 385px;
+    z-index: 10;
 }
