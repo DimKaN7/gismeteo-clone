@@ -82,7 +82,7 @@ export function getTimes(utcDifference) {
     let startTimeUTC = 0;
     let startDay = '';
     if (utcDifference > 0) {
-        if (utcDifference === 2 || utcDifference === 3) {
+        if (utcDifference <= 3) {
             startTimeLocal = utcDifference;
             startDay = 'tomorrow';
             startTimeUTC = 0;

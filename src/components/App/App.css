@@ -9,8 +9,7 @@
     width: 660px;
     font-size: 22px;
     padding-left: 10px;
-    margin: 10px 0;
-    position: relative;
+    margin: 10px 0 0 0;
 }
 .error-cont {
     position: absolute;

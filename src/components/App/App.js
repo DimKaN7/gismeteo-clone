@@ -62,10 +62,11 @@ export default function App() {
 
     return (
         <div className='app-main-container'>
-        {showError && 
-            <div className='error-cont'>City not found, switching to Irkutsk</div>
-        }
-        <Header onSubmit={onSubmit} loading={loading}></Header>
+            {
+                showError && 
+                <div className='error-cont'>City not found, switching to Irkutsk</div>
+            }
+            <Header onSubmit={onSubmit} loading={loading}></Header>
             <h1>{`Weather in ${city.charAt(0).toUpperCase() + city.slice(1)}`}</h1>
             <WeatherView weather={weather}
                          loading={loading}
@@ -73,7 +74,7 @@ export default function App() {
                          onTabClick={onTabClick}
                          onPrevClick={onPrevClick}
                          onNextClick={onNextClick}></WeatherView>
-        <Footer></Footer>
+            <Footer></Footer>
         </div>
     );
 }
