@@ -15,7 +15,7 @@ export default function WeahterTab(props) {
             duration: 400,
             easing: t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
         },
-        height: isSelected ? '120px' : '105px',
+        height: isSelected ? '125px' : '105px',
     });
     if (props.loading) {
         return (
