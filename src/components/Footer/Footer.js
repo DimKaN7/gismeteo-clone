@@ -5,7 +5,7 @@ import {getImages, getIcon} from '../../services/tools';
 import {links} from '../../services/labels';
 
 export default function Footer() {
-    const context = require.context('../../icons/others/', false, /\.(png)$/);
+    const context = require.context('../../icons/others/footer/', false, /\.(png)$/);
     const iconsPaths = getImages(context);
     const icons = [0, 1, 2, 3].map(el => {
         return (
@@ -19,7 +19,7 @@ export default function Footer() {
     });
 
     return (
-        <div class='footer-cont'>
+        <div className='footer-cont'>
             <div className='footer-content'>
                 {icons}
             </div>

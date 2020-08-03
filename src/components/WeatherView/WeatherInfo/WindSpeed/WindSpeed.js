@@ -2,12 +2,12 @@ import React from 'react';
 
 import './WindSpeed.css';
 
-import {windDirections} from '../../../../services/labels';
+import {windDirections, titles} from '../../../../services/labels';
 import {round} from '../../../../services/tools';
 import AnimatedSpan from '../../AnimatedSpan/AnimatedSpan';
 
 export default function WindSpeed(props) {
-    const {speedInfo} = props;
+    const {speedInfo, lang} = props;
     
     const speeds = speedInfo.map(s => s.speed);
     const degs = speedInfo.map(s => s.deg);
@@ -26,7 +26,7 @@ export default function WindSpeed(props) {
     });
     const dirDivs = degs.map((d, index) => {
         const getDirection = (degrees) => {
-            return windDirections[round(degrees / 45, 0) % 8];
+            return windDirections[lang][round(degrees / 45, 0) % 8];
         }
 
         return (
@@ -39,7 +39,7 @@ export default function WindSpeed(props) {
     return (
         <div className='wind-cont'>
             <div className='wind-cont-header'>
-                <span>Скорость ветра, м/с</span>
+                <span>{titles[lang]['speeds']}</span>
             </div>
             <div className='wind-cont-speeds'> 
                 {speedDivs}

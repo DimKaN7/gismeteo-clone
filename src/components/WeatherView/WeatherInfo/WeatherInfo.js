@@ -12,7 +12,7 @@ import {round, getWeatherIcon} from '../../../services/tools';
 import Loader from '../../Loader/Loader';
 
 export default function WeatherInfo(props) {
-    const {weather, loading, selectedTab, onPrevClick, onNextClick} = props;
+    const {weather, lang, loading, selectedTab, onPrevClick, onNextClick} = props;
     if (loading) {
         return (
             <div className='info-cont'>
@@ -48,13 +48,14 @@ export default function WeatherInfo(props) {
                     <Times times={times}></Times>
                     <WeatherIcons weatherIcons={weatherIcons} selectedTab={selectedTab}></WeatherIcons>
                     <ValueBoxes values={temps}></ValueBoxes>
-                    <WindSpeed speedInfo={speedInfo}></WindSpeed>
-                    <Precipitations precipitations={precipitations}></Precipitations>
+                    <WindSpeed speedInfo={speedInfo} lang={lang}></WindSpeed>
+                    <Precipitations precipitations={precipitations} lang={lang}></Precipitations>
                 </div>
                 <AdditionalInfo type={'pressure'}
                                 date={date}
                                 times={times}
                                 values={pressures}
+                                lang={lang}
                                 selectedTab={selectedTab}
                                 onPrevClick={onPrevClick}
                                 onNextClick={onNextClick}></AdditionalInfo>
@@ -62,6 +63,7 @@ export default function WeatherInfo(props) {
                                 date={date}
                                 times={times}
                                 values={humidities}
+                                lang={lang}
                                 selectedTab={selectedTab}
                                 oneLine={true}
                                 onPrevClick={onPrevClick}
@@ -70,6 +72,7 @@ export default function WeatherInfo(props) {
                                 date={date}
                                 times={times}
                                 values={visibilities}
+                                lang={lang}
                                 selectedTab={selectedTab}
                                 oneLine={true}
                                 onPrevClick={onPrevClick}

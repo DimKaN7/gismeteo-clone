@@ -5,7 +5,7 @@ import './WeatherTab.css';
 
 import ValueBox from '../../WeatherInfo/ValueBoxes/ValueBox/ValueBox';
 import {getImages, getIcon} from '../../../../services/tools';
-import {titles, daysOfWeek, months} from '../../../../services/labels';
+import {daysTitles, daysOfWeek, months, units} from '../../../../services/labels';
 import AnimatedSpan from '../../AnimatedSpan/AnimatedSpan';
 
 export default function WeahterTab(props) {
@@ -24,6 +24,7 @@ export default function WeahterTab(props) {
         );
     }
     else {
+        const {lang} = props;
         const {title, stat, onTabClick} = props.properties;
         const {date, minTemp, maxTemp, precipitations, maxFrequentIcon} = stat;
         const dayOfWeek = date.getUTCDay();
@@ -41,33 +42,36 @@ export default function WeahterTab(props) {
             if (isSelected) name += ' selected';
             return name;
         }
+        const dayTitle = lang === 'ru' 
+                               ? `${daysOfWeek[lang][dayOfWeek]}, ${dayNum} ${months[lang][month]}`
+                               : `${daysOfWeek[lang][dayOfWeek]}, ${months[lang][month]} ${dayNum}`; 
 
         return (
-                <animated.div className={className()}
-                    onClick={() => onTabClick(title)}
-                    style={animProps}>
-                    <div className='tab-content'>
-                        <span className='tab-content__date'>{`${daysOfWeek[dayOfWeek]}, ${dayNum} ${months[month]}`}</span>
-                        <span className='tab-content__day'>{titles[title]}</span>
-                        <div className='tab-content__temp'>
-                            <div className='tab-content__temp-n'>
-                                <ValueBox value={minTempTitle} top={'16'} type={'temp'} topFixed={true}></ValueBox>
-                            </div>
-                            <div className='tab-content__temp-d'>
-                                <ValueBox value={maxTempTitle} type={'temp'}></ValueBox>
-                            </div>
+            <animated.div className={className()}
+                onClick={() => onTabClick(title)}
+                style={animProps}>
+                <div className='tab-content'>
+                    <span className='tab-content__date'>{dayTitle}</span>
+                    <span className='tab-content__day'>{daysTitles[lang][title]}</span>
+                    <div className='tab-content__temp'>
+                        <div className='tab-content__temp-n'>
+                            <ValueBox value={minTempTitle} top={'16'} type={'temp'} topFixed={true}></ValueBox>
+                        </div>
+                        <div className='tab-content__temp-d'>
+                            <ValueBox value={maxTempTitle} type={'temp'}></ValueBox>
                         </div>
                     </div>
-                    <div className='tab-visual'>
-                        <div className='tab-visual__icon'>
-                            <img src={icon}></img>
-                        </div>
-                        <div className='tab-visual__text'>
-                            <AnimatedSpan value={precipitations} withPlus={false} decimals={1}></AnimatedSpan>
-                            <span>&nbsp;мм</span>
-                        </div>
+                </div>
+                <div className='tab-visual'>
+                    <div className='tab-visual__icon'>
+                        <img src={icon}></img>
                     </div>
-                </animated.div>
+                    <div className='tab-visual__text'>
+                        <AnimatedSpan value={precipitations} withPlus={false} decimals={1}></AnimatedSpan>
+                        <span>&nbsp;{units[lang]['precipitations']}</span>
+                    </div>
+                </div>
+            </animated.div>
         );
     }
 }

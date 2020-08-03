@@ -1,14 +1,19 @@
 .header-cont {
+    position: fixed;
+    top: 0;
+    z-index: 3;
     display: flex;
     justify-content: center;
     width: 100%;
     height: 40px;
-    background-color: #359FFB;
+    background-color: #359ffb;
 }
-.header-cont > form {
+.header-cont__wrapper {
     height: 100%;
     width: 660px;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
 }
 .header-cont__city {
@@ -22,17 +27,26 @@
 .header-cont__city::placeholder {
     color: #359FFB;
 }
-.search-results {
-    position: absolute;
-    top: 32px;
-    width: 213px;
-    height: 100px;
-    overflow-y: scroll;
-    background-color: white;
-    opacity: 0.5;
-    z-index: 10;
-}
 input[type="text"]:disabled { 
     background: #EBEDEE; 
     border-color: #EBEDEE;
+}
+
+.lang-cont {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+}
+.lang-cont > a {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border-radius: 50%;
+}
+.lang-cont > a > img {
+    height: 100%;
 }

@@ -5,30 +5,36 @@ import './AdditionalInfo.css';
 import Times from '../Times/Times';
 import ValueBoxes from '../ValueBoxes/ValueBoxes';
 
-import {titles, daysOfWeek, months, additionalInfoTitles} from '../../../../services/labels';
+import {daysTitles, daysOfWeek, months, titles} from '../../../../services/labels';
 
 export default function AdditionalInfo(props) {
     const [visited, setVisited] = useState('title__button');
 
-    const {values, date, times, type, selectedTab, 
+    const {values, date, times, type, selectedTab, lang, 
            oneLine=false, onNextClick, onPrevClick} = props;
     const dayOfWeek = date.getUTCDay();
     const dayNum = date.getUTCDate();
     const month = date.getUTCMonth();
-    const dateVal1 = `${daysOfWeek[dayOfWeek]}, ${dayNum} ${months[month]}`
-    const dateVal2 = `, ${titles[selectedTab].toLowerCase()}`;
+    const dateVal1 = lang === 'ru' 
+                                ? `${daysOfWeek[lang][dayOfWeek]}, ${dayNum} ${months[lang][month]}`
+                                : `${daysOfWeek[lang][dayOfWeek]}, ${months[lang][month]} ${dayNum}`;
+    const dateVal2 = `, ${daysTitles[lang][selectedTab].toLowerCase()}`;
     
     const prevDate = new Date(Date.parse(date.toString()) - 86400000);
     const pDayOfWeek = prevDate.getUTCDay();
     const pDayNum = prevDate.getUTCDate();
     const pMonth = prevDate.getUTCMonth();
-    const prevDateLabel = `${daysOfWeek[pDayOfWeek]}, ${pDayNum} ${months[pMonth]}`;
+    const prevDateLabel = lang === 'ru'
+                                    ? `${daysOfWeek[lang][pDayOfWeek]}, ${pDayNum} ${months[lang][pMonth]}`
+                                    : `${daysOfWeek[lang][pDayOfWeek]}, ${months[lang][pMonth]} ${pDayNum}`;
 
     const nextDate = new Date(Date.parse(date.toString()) + 86400000);
     const nDayOfWeek = nextDate.getUTCDay();
     const nDayNum = nextDate.getUTCDate();
     const nMonth = nextDate.getUTCMonth();
-    const nextDateLabel = `${daysOfWeek[nDayOfWeek]}, ${nDayNum} ${months[nMonth]}`;
+    const nextDateLabel = lang === 'ru'
+                                    ? `${daysOfWeek[lang][nDayOfWeek]}, ${nDayNum} ${months[lang][nMonth]}`
+                                    : `${daysOfWeek[lang][nDayOfWeek]}, ${months[lang][nMonth]} ${nDayNum}`;
 
     const onMouseEnter = () => {
         const v = 'title__button visited';
@@ -49,7 +55,7 @@ export default function AdditionalInfo(props) {
                         ? <a onClick={onPrevClick}>&#8592;{prevDateLabel}</a>
                         : null} 
                 </div>
-                {additionalInfoTitles[type]}
+                {titles[lang][type]}
                 <div className={visited}>
                     {selectedTab !== 2
                         ? <a onClick={onNextClick}>{nextDateLabel}&#8594;</a>

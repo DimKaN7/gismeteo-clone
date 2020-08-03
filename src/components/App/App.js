@@ -5,6 +5,7 @@ import './App.css';
 import Header from '../Header/Header';
 import WeatherView from '../WeatherView/WeatherView';
 import {getNeededData} from '../../services/tools';
+import {errorTexts} from '../../services/labels';
 import Footer from '../Footer/Footer';
 
 export default function App() {
@@ -16,6 +17,10 @@ export default function App() {
     const [loading, setLoading] = useState(true);
     const [selectedTab, setSelectedTab] = useState(0);
     const [showError, setShowError] = useState(false);
+    const [lang, setLang] = useState('ru');
+    const weatherTitle = lang === 'ru'
+                                    ? `Погода в ${city.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).reduce((sum, val) => sum + ' ' + val)}`
+                                    : `Weather in ${city.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).reduce((sum, val) => sum + ' ' + val)}`
 
     const onTabClick = (newTab) => {
         if (newTab !== selectedTab) {
@@ -35,6 +40,9 @@ export default function App() {
         setLoading(true);
         setCity(value);
     }
+    const onLangClick = () => {
+        lang === 'ru' ? setLang('en') : setLang('ru');
+    }
 
     useEffect(() => {
         setTimeout(() => {
@@ -46,7 +54,6 @@ export default function App() {
                 setLoading(false);
             })
             .catch((err) => {
-                // alert('City not found! Switching to Irkutsk.');
                 setShowError(true);
                 setCity('Irkutsk');
             });
@@ -64,12 +71,16 @@ export default function App() {
         <div className='app-main-container'>
             {
                 showError && 
-                <div className='error-cont'>City not found, switching to Irkutsk</div>
+                <div className='error-cont'>{errorTexts[lang]}</div>
             }
-            <Header onSubmit={onSubmit} loading={loading}></Header>
-            <h1>{`Weather in ${city.charAt(0).toUpperCase() + city.slice(1)}`}</h1>
+            <Header onSubmit={onSubmit} 
+                    onLangClick={onLangClick}
+                    loading={loading}
+                    lang={lang}></Header>
+            <h1>{weatherTitle}</h1>
             <WeatherView weather={weather}
                          loading={loading}
+                         lang={lang}
                          selectedTab={selectedTab}
                          onTabClick={onTabClick}
                          onPrevClick={onPrevClick}
