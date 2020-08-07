@@ -8,7 +8,6 @@ import WeahterTab from './WeatherTab/WeatherTab';
 
 export default function WeatherTab(props) {
     const {weather, lang, loading, selectedTab, onTabClick} = props;
-    // console.log(weather);
 
     function getDayStat(day) { 
         const dayWeather = weather.slice(8 * day, (day + 1) * 8);
@@ -24,7 +23,7 @@ export default function WeatherTab(props) {
         const precipitations = dayWeather.map(w => 
             w.rain ? round(w.rain['3h'], 1) : 0
         ).reduce((sum, value) => round(sum + value, 1));
-        const date = new Date(dayWeather[dayWeather.length - 1].dt * 1000);
+        const date = new Date(dayWeather[4].dt * 1000);
 
         const icons = dayWeather.map(w => getWeatherIcon(w));
         const maxFrequentIcon = getMaxFrequentIcon(icons);
