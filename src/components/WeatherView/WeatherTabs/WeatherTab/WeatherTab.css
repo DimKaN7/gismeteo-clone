@@ -29,11 +29,21 @@
     width: 120px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 .tab-content__date {
     font-size: 17px;
     line-height: 19px;
+    height: 19px;
+    white-space: nowrap;
     font-weight: 500;
+}
+.tab-content__date.marquee {
+    animation: marquee 5s linear infinite;
+}
+@keyframes marquee {
+    0% {transform: translateX(100%);}
+    100% {transform: translateX(-100%);}
 }
 .tab-content__day {
     font-size: 13px;

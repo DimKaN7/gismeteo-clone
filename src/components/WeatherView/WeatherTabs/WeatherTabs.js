@@ -3,6 +3,7 @@ import React from 'react';
 import './WeatherTabs.css';
 
 import {round, getWeatherIcon, getMaxFrequentIcon} from '../../../services/tools';
+import {daysOfWeek, months} from '../../../services/labels';
 import WeahterTab from './WeatherTab/WeatherTab';
 
 export default function WeatherTab(props) {
@@ -28,12 +29,21 @@ export default function WeatherTab(props) {
         const icons = dayWeather.map(w => getWeatherIcon(w));
         const maxFrequentIcon = getMaxFrequentIcon(icons);
 
+        const dayOfWeek = date.getUTCDay();
+        const dayNum = date.getUTCDate();
+        const month = date.getUTCMonth();
+        const dayTitle = lang === 'ru' 
+                               ? `${daysOfWeek[lang][dayOfWeek]}, ${dayNum} ${months[lang][month]}`
+                               : `${daysOfWeek[lang][dayOfWeek]}, ${months[lang][month]} ${dayNum}`; 
+        const marquee = dayTitle.length > 13;
+
         return {
             minTemp: minTemp,
             maxTemp: maxTemp,
             precipitations: precipitations,
-            date: date,
+            dayTitle: dayTitle,
             maxFrequentIcon: maxFrequentIcon,
+            marquee: marquee,
         };
     }
 

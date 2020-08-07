@@ -14,13 +14,13 @@ export default function ValueBox(props) {
 
     const animProps = useSpring({
         from: {
-            transform: `${topFixed ? `translate3d(0, ${top}px, 0)` : `translate3d(0, 46px, 0)`}`,
+            transform: `${topFixed ? `translateY(${top}px)` : `translateY(46px)`}`,
             backgroundColor: `${color}`,
             fontWeight: `${type === 'temp' ? '500' : '400'}`,
             fontSize:  `${type === 'temp' ? '22px' : '18px'}`,
         },
         to: {
-            transform: `${topFixed ? `translate3d(0, ${top}px, 0)` : `translate3d(0, ${top}px, 0)`}`,
+            transform: `${topFixed ? `translateY(${top}px)` : `translateY(${top}px)`}`,
             backgroundColor: `${color}`,
             fontWeight: `${type === 'temp' ? '500' : '400'}`,
             fontSize:  `${type === 'temp' ? '22px' : '18px'}`,

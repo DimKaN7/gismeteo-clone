@@ -5,12 +5,12 @@ import './WeatherTab.css';
 
 import ValueBox from '../../WeatherInfo/ValueBoxes/ValueBox/ValueBox';
 import {getImages, getIcon} from '../../../../services/tools';
-import {daysTitles, daysOfWeek, months, units} from '../../../../services/labels';
+import {daysTitles, units} from '../../../../services/labels';
 import AnimatedSpan from '../../AnimatedSpan/AnimatedSpan';
 
 export default function WeahterTab(props) {
     const {isSelected} = props.properties;
-    const animProps = useSpring({
+    const tabHeightAnim = useSpring({
         config: {
             duration: 400,
             easing: t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
@@ -26,10 +26,7 @@ export default function WeahterTab(props) {
     else {
         const {lang} = props;
         const {title, stat, onTabClick} = props.properties;
-        const {date, minTemp, maxTemp, precipitations, maxFrequentIcon} = stat;
-        const dayOfWeek = date.getUTCDay();
-        const dayNum = date.getUTCDate();
-        const month = date.getUTCMonth();
+        const {dayTitle, marquee, minTemp, maxTemp, precipitations, maxFrequentIcon} = stat;
 
         const context = require.context('../../../../icons/weather/', false, /\.(svg)$/);
         const icons = getImages(context);
@@ -42,16 +39,13 @@ export default function WeahterTab(props) {
             if (isSelected) name += ' selected';
             return name;
         }
-        const dayTitle = lang === 'ru' 
-                               ? `${daysOfWeek[lang][dayOfWeek]}, ${dayNum} ${months[lang][month]}`
-                               : `${daysOfWeek[lang][dayOfWeek]}, ${months[lang][month]} ${dayNum}`; 
 
         return (
             <animated.div className={className()}
                 onClick={() => onTabClick(title)}
-                style={animProps}>
+                style={tabHeightAnim}>
                 <div className='tab-content'>
-                    <span className='tab-content__date'>{dayTitle}</span>
+                    <span className={marquee ? 'tab-content__date marquee' : 'tab-content__date'}>{dayTitle}</span>
                     <span className='tab-content__day'>{daysTitles[lang][title]}</span>
                     <div className='tab-content__temp'>
                         <div className='tab-content__temp-n'>
