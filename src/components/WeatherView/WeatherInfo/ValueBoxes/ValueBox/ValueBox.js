@@ -1,5 +1,4 @@
 import React from 'react';
-import {useSpring, animated} from 'react-spring';
 
 import './ValueBox.css';
 
@@ -12,29 +11,17 @@ export default function ValueBox(props) {
                   type === 'humidity' ? '#84C6F1' : 
                   '#F0F0F0';
 
-    const animProps = useSpring({
-        from: {
-            transform: `${topFixed ? `translateY(${top}px)` : `translateY(46px)`}`,
-            backgroundColor: `${color}`,
-            fontWeight: `${type === 'temp' ? '500' : '400'}`,
-            fontSize:  `${type === 'temp' ? '22px' : '18px'}`,
-        },
-        to: {
-            transform: `${topFixed ? `translateY(${top}px)` : `translateY(${top}px)`}`,
-            backgroundColor: `${color}`,
-            fontWeight: `${type === 'temp' ? '500' : '400'}`,
-            fontSize:  `${type === 'temp' ? '22px' : '18px'}`,
-        },
-        config: {
-            duration: 400,
-            easing: t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
-        }
-    });
+    const style = {
+        backgroundColor: `${color}`,
+        fontWeight: `${type === 'temp' ? '500' : '400'}`,
+        fontSize:  `${type === 'temp' ? '22px' : '18px'}`,
+        transform: `translateY(${top}px)`,
+    }
 
     return (
-        <animated.div className='value-box'
-             style={animProps}>
+        <div className='value-box'
+             style={style}>
             <AnimatedSpan value={value} withPlus={type === 'temp'}></AnimatedSpan>
-        </animated.div>
+        </div>
     );
 }

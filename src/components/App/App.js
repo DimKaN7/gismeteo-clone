@@ -4,8 +4,8 @@ import './App.css';
 
 import Header from '../Header/Header';
 import WeatherView from '../WeatherView/WeatherView';
-import {getNeededData} from '../../services/tools';
-import {errorTexts} from '../../services/labels';
+import {getNeededData, getStage} from '../../services/tools';
+import {errorTexts, startCity} from '../../services/labels';
 import Footer from '../Footer/Footer';
 import Loader from '../Loader/Loader';
 
@@ -13,54 +13,52 @@ export default function App() {
     const apiBase = 'https://api.openweathermap.org/data/2.5/forecast?';
     const apiKey = 'abac1141b934536baef9782b2a0e7327';
 
-    const [city, setCity] = useState('Irkutsk');
+    const [lang, setLang] = useState('ru');
+    const [city, setCity] = useState(startCity['ru']);
     const [weather, setWeather] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedTab, setSelectedTab] = useState(0);
     const [showError, setShowError] = useState(false);
-    const [lang, setLang] = useState('ru');
-    const weatherTitle = lang === 'ru'
-                                    ? `Погода в ${city.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).reduce((sum, val) => sum + ' ' + val)}`
-                                    : `Weather in ${city.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).reduce((sum, val) => sum + ' ' + val)}`
+    const weatherTitle = `${city.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).reduce((sum, val) => sum + ' ' + val)}`
 
     const onTabClick = (newTab) => {
         if (newTab !== selectedTab) {
             setSelectedTab(newTab);
         }
     }
-
     const onPrevClick = () => {
         const newTab = selectedTab - 1;
         setSelectedTab(newTab);
     }
-
     const onNextClick = () => {
         const newTab = selectedTab + 1;
         setSelectedTab(newTab);
     }
-
     const onSubmit = (event, value) => {
         event.preventDefault();
         setLoading(true);
         setCity(value);
     }
-
     const onLangClick = () => {
         lang === 'ru' ? setLang('en') : setLang('ru');
     }
 
+    const getInfo = async () => {
+        const response = await fetch(`${apiBase}q=${city}&units=metric&lang=${lang}&appid=${apiKey}`);
+        const json = await response.json();
+        return json;
+    }
+
     useEffect(() => {
         setTimeout(() => {
-            fetch(`${apiBase}q=${city}&units=metric&lang=ru&appid=${apiKey}`)
-            .then((response) => response.json())
+            getInfo()
             .then((json) => {
-                // console.log(json);
                 setWeather(getNeededData(json));
                 setLoading(false);
             })
-            .catch((err) => {
+            .catch(() => {
                 setShowError(true);
-                setCity('Irkutsk');
+                setCity(startCity[lang]);
             });
         }, 2000);
         setSelectedTab(0);

@@ -139,3 +139,13 @@ export function chunkArray(array) {
     }
     return result;
 }
+
+export function getStage(city) {
+    const fixed = ['о', 'и'];
+    const change = ['а'];
+
+    const lastChar = city.charAt(city.length - 1);
+    if (fixed.indexOf(lastChar) != -1) return city;
+    else if (change.indexOf(lastChar) != -1) return city.slice(0, city.length - 1) + 'е';
+    else return city + 'е';
+}

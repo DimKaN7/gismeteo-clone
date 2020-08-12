@@ -12,9 +12,9 @@
         padding: 0 10px;
     }
     .tabs-wrapper {
-        overflow: scroll;
-        height: 125px;
+        overflow-x: scroll;
         overflow-y: hidden;
+        height: 125px;
     }
     .tabs-wrapper::-webkit-scrollbar {
         display: none;

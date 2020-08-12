@@ -54,3 +54,7 @@ export const links = [
     'https://github.com/DimKaN7',
     'https://vk.com/dimka_n7',
 ];
+export const startCity = {
+    ru: 'Иркутск',
+    en: 'Irkutsk',
+}
