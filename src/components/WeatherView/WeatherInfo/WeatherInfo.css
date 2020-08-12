@@ -14,6 +14,7 @@
     flex-direction: column;
 }
 .info-main.loading {
+    width: 100%;
     height: 399px;
 }
 .info-additional {
@@ -22,4 +23,23 @@
     width: 100%;
     height: 215px;
     margin-top: 20px;
+}
+
+@media (max-width: 670px) {
+    .info-cont {
+        margin: 0;
+    }
+    .info-main {
+        width: 100%;
+        height: 100%;
+        overflow-x: scroll;  
+    }
+    .info-main::-webkit-scrollbar {
+        display: none;
+    }
+    .info-main-wrapper {
+        width: 200%;
+        display: flex;
+        flex-direction: column;      
+    }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 import './WeatherInfo.css';
 
@@ -9,16 +9,30 @@ import WindSpeed from './WindSpeed/WindSpeed';
 import Precipitations from './Precipitations/Precipitations';
 import AdditionalInfo from './AdditionalInfo/AdditionalInfo';
 import {round, getWeatherIcon} from '../../../services/tools';
-import Loader from '../../Loader/Loader';
 
 export default function WeatherInfo(props) {
     const {weather, lang, loading, selectedTab, onPrevClick, onNextClick} = props;
+    const [width, setWidth] = useState(0);
+
+    const updateWidth = () => {
+        let windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
+        // let windowHeight = typeof window !== "undefined" ? window.innerHeight : 0;
+        console.log(windowWidth);
+        setWidth(windowWidth);
+    }
+
+    useEffect(() => {
+        updateWidth();
+        window.addEventListener('resize', updateWidth);
+        return function cleanup () {
+            window.removeEventListener('resize', updateWidth);
+        }
+    }, []);
+
     if (loading) {
         return (
             <div className='info-cont'>
-                <div className='info-main loading'>
-                    <Loader></Loader>
-                </div>
+                <div className='info-main loading'></div>
                 <div className='info-additional'></div>
                 <div className='info-additional'></div>
                 <div className='info-additional'></div>
@@ -44,39 +58,46 @@ export default function WeatherInfo(props) {
 
         return (
             <div className='info-cont'>
-                <div className='info-main'>
-                    <Times times={times}></Times>
-                    <WeatherIcons weatherIcons={weatherIcons} selectedTab={selectedTab}></WeatherIcons>
-                    <ValueBoxes values={temps}></ValueBoxes>
-                    <WindSpeed speedInfo={speedInfo} lang={lang}></WindSpeed>
-                    <Precipitations precipitations={precipitations} lang={lang}></Precipitations>
-                </div>
-                <AdditionalInfo type={'pressure'}
-                                date={date}
-                                times={times}
-                                values={pressures}
-                                lang={lang}
-                                selectedTab={selectedTab}
-                                onPrevClick={onPrevClick}
-                                onNextClick={onNextClick}></AdditionalInfo>
-                <AdditionalInfo type={'humidity'}
-                                date={date}
-                                times={times}
-                                values={humidities}
-                                lang={lang}
-                                selectedTab={selectedTab}
-                                oneLine={true}
-                                onPrevClick={onPrevClick}
-                                onNextClick={onNextClick}></AdditionalInfo>
-                <AdditionalInfo type={'visibility'}
-                                date={date}
-                                times={times}
-                                values={visibilities}
-                                lang={lang}
-                                selectedTab={selectedTab}
-                                oneLine={true}
-                                onPrevClick={onPrevClick}
-                                onNextClick={onNextClick}></AdditionalInfo>
+                <div style={{width: '100%', height: '100%'}}>
+                    <div className='info-main'>
+                        <div className='info-main-wrapper'>
+                            <Times times={times}></Times>
+                            <WeatherIcons weatherIcons={weatherIcons} selectedTab={selectedTab}></WeatherIcons>
+                            <ValueBoxes values={temps}></ValueBoxes>
+                            <WindSpeed speedInfo={speedInfo} lang={lang}></WindSpeed>
+                            <Precipitations precipitations={precipitations} lang={lang}></Precipitations> 
+                        </div>
+                    </div>
+                    <AdditionalInfo type={'pressure'}
+                                    mobile={width < 670}
+                                    date={date}
+                                    times={times}
+                                    values={pressures}
+                                    lang={lang}
+                                    selectedTab={selectedTab}
+                                    onPrevClick={onPrevClick}
+                                    onNextClick={onNextClick}></AdditionalInfo>
+                    <AdditionalInfo type={'humidity'}
+                                    mobile={width < 670}
+                                    date={date}
+                                    times={times}
+                                    values={humidities}
+                                    lang={lang}
+                                    selectedTab={selectedTab}
+                                    oneLine={true}
+                                    onPrevClick={onPrevClick}
+                                    onNextClick={onNextClick}></AdditionalInfo>
+                    <AdditionalInfo type={'visibility'}
+                                    mobile={width < 670}
+                                    date={date}
+                                    times={times}
+                                    values={visibilities}
+                                    lang={lang}
+                                    selectedTab={selectedTab}
+                                    oneLine={true}
+                                    onPrevClick={onPrevClick}
+                                    onNextClick={onNextClick}></AdditionalInfo>
+                </div>       
             </div>
         );
     }

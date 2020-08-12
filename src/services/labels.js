@@ -21,14 +21,14 @@ export const windDirections = {
 export const titles = {
     ru: {
         pressure: 'Давление, мм рт. ст.',
-        humidity: 'Относительная влажность, %',
+        humidity: 'Влажность, %',
         visibility: 'Видимость, км',
         speeds: 'Скорость ветра, м/с',
         precipitations: 'Осадки, мм',
     },
     en: {
         'pressure': 'Pressure, mm Hg',
-        'humidity': 'Relative humidity, %',
+        'humidity': 'Humidity, %',
         'visibility': 'Visibility, km', 
         'speeds': 'Wind speed, m/s',
         'precipitations': 'Precipitations, mm',

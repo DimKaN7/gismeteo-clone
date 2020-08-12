@@ -1,3 +1,22 @@
 .weather-cont {
     width: 660px;
+    position: relative;
+}
+.tabs-wrapper {
+    width: 100%;
+}
+
+@media (max-width: 670px) {
+    .weather-cont {
+        width: 100%;
+        padding: 0 10px;
+    }
+    .tabs-wrapper {
+        overflow: scroll;
+        height: 125px;
+        overflow-y: hidden;
+    }
+    .tabs-wrapper::-webkit-scrollbar {
+        display: none;
+    }
 }

@@ -1,7 +1,8 @@
 .icon-cont {
-    /* position: absolute; */
-    width: 82.5px;
-    text-align: center;
+    flex: 1 1 80px;
+    display: flex;
+    justify-content: center;
+    position: relative;
 }
 .anim-cont {
     position: absolute;

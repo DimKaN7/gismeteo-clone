@@ -2,9 +2,9 @@
     width: 100%;
     /* height: 62px; */
     margin-top: 12px;
+    position: relative;
 }
 .wind-cont-header {
-    width: 100%;
     font-size: 15px;
     line-height: 22px;
     padding-bottom: 7px;
@@ -23,7 +23,7 @@
 }
 .wind-speed,
 .wind-dir {
-    width: 82.5px;
+    flex: 1 1 100%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -40,4 +40,10 @@
 .wind-dir > div {
     font-size: 13px;
     color: #777;
+}
+
+@media (max-width: 670px) {
+    .wind-cont-header {
+        /* чтобы название было фиксированным не зваисимо от скрола */
+    }
 }

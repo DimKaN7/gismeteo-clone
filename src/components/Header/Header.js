@@ -5,7 +5,7 @@ import './Header.css';
 import {getImages, getIcon} from '../../services/tools';
 
 export default function Header(props) {
-    const {onSubmit, onLangClick, loading, lang} = props;
+    const {onSubmit, onLangClick, lang} = props;
     const context = require.context('../../icons/others/header/', false, /\.(svg)$/);
     const iconsPaths = getImages(context);
     const [value, setValue] = useState('');
@@ -25,14 +25,13 @@ export default function Header(props) {
 
     return (
         <div className='header-cont'>
-            <div className='header-cont__wrapper'>
+            <div className='header-cont__wrapper' >
                 <form onSubmit={(event) => {setValue(''); onSubmit(event, value)}}>
                     <input className='header-cont__city' 
                             type='text'
                             placeholder={lang === 'ru' ? 'Поиск города' : 'Search city'}
                             onChange={onChange}
-                            value={value}
-                            disabled={loading} />
+                            value={value}/>
                 </form>
                 <div className='lang-cont' onClick={onLangClick}>
                     <animated.a style={{opacity, transform: transform.interpolate(t => `${t} rotateX(180deg)`)}}>

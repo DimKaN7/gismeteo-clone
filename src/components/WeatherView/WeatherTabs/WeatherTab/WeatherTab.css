@@ -70,7 +70,6 @@
     flex-direction: column;
 }
 .tab-visual__icon {
-    /* height: 72px; */
     text-align: center;
     flex: 1 0 auto;
 }

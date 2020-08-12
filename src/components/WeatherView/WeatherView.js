@@ -10,12 +10,14 @@ export default function WeatherView(props) {
 
     return (
         <div className='weather-cont'>
-            <WeatherTabs weather={weather}
-                         loading={loading}
-                         lang={lang}
-                         selectedTab={selectedTab}
-                         onTabClick={onTabClick}>
-            </WeatherTabs>
+            <div className='tabs-wrapper'>
+                <WeatherTabs weather={weather}
+                             loading={loading}
+                             lang={lang}
+                             selectedTab={selectedTab}
+                             onTabClick={onTabClick}>
+                </WeatherTabs>
+            </div>
             <WeatherInfo weather={weather}
                          loading={loading}
                          lang={lang}

@@ -7,6 +7,7 @@ import WeatherView from '../WeatherView/WeatherView';
 import {getNeededData} from '../../services/tools';
 import {errorTexts} from '../../services/labels';
 import Footer from '../Footer/Footer';
+import Loader from '../Loader/Loader';
 
 export default function App() {
     const apiBase = 'https://api.openweathermap.org/data/2.5/forecast?';
@@ -27,19 +28,23 @@ export default function App() {
             setSelectedTab(newTab);
         }
     }
+
     const onPrevClick = () => {
         const newTab = selectedTab - 1;
         setSelectedTab(newTab);
     }
+
     const onNextClick = () => {
         const newTab = selectedTab + 1;
         setSelectedTab(newTab);
     }
+
     const onSubmit = (event, value) => {
         event.preventDefault();
         setLoading(true);
         setCity(value);
     }
+
     const onLangClick = () => {
         lang === 'ru' ? setLang('en') : setLang('ru');
     }
@@ -70,12 +75,17 @@ export default function App() {
     return (
         <div className='app-main-container'>
             {
-                showError && 
-                <div className='error-cont'>{errorTexts[lang]}</div>
+                loading &&
+                <div className='loader-cont'>
+                    {
+                        showError && 
+                        <div className='error-cont'>{errorTexts[lang]}</div>
+                    }
+                    <Loader></Loader>
+                </div>
             }
             <Header onSubmit={onSubmit} 
                     onLangClick={onLangClick}
-                    loading={loading}
                     lang={lang}></Header>
             <h1>{weatherTitle}</h1>
             <WeatherView weather={weather}

@@ -4,7 +4,7 @@
     z-index: 3;
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 100vw;
     height: 40px;
     background-color: #359ffb;
 }
@@ -27,10 +27,6 @@
 .header-cont__city::placeholder {
     color: #359FFB;
 }
-input[type="text"]:disabled { 
-    background: #EBEDEE; 
-    border-color: #EBEDEE;
-}
 
 .lang-cont {
     width: 30px;
@@ -49,4 +45,10 @@ input[type="text"]:disabled {
 }
 .lang-cont > a > img {
     height: 100%;
+}
+
+@media (max-width: 670px) {
+    .header-cont {
+        padding: 0 10px;
+    }
 }
