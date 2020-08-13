@@ -5,7 +5,7 @@ import './ValueBox.css';
 import AnimatedSpan from '../../../AnimatedSpan/AnimatedSpan';
 
 export default function ValueBox(props) {
-    const {value, top, type, topFixed=false} = props;
+    const {value, top, type} = props;
     const color = type === 'temp' ? '#FDEEC1' : 
                   type === 'pressure' ? '#F3DDF5' :
                   type === 'humidity' ? '#84C6F1' : 

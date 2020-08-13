@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 import './App.css';
 
 import Header from '../Header/Header';
 import WeatherView from '../WeatherView/WeatherView';
-import {getNeededData, getStage} from '../../services/tools';
+import {getNeededData} from '../../services/tools';
 import {errorTexts, startCity} from '../../services/labels';
 import Footer from '../Footer/Footer';
 import Loader from '../Loader/Loader';
@@ -13,25 +13,32 @@ export default function App() {
     const apiBase = 'https://api.openweathermap.org/data/2.5/forecast?';
     const apiKey = 'abac1141b934536baef9782b2a0e7327';
 
+    const [width, setWidth] = useState(0);
     const [lang, setLang] = useState('ru');
     const [city, setCity] = useState(startCity['ru']);
     const [weather, setWeather] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedTab, setSelectedTab] = useState(0);
     const [showError, setShowError] = useState(false);
+
+    const scroll = useRef(null);
+
     const weatherTitle = `${city.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).reduce((sum, val) => sum + ' ' + val)}`
 
     const onTabClick = (newTab) => {
         if (newTab !== selectedTab) {
+            scroll.current.scrollLeft = 223 * newTab + 107 - (width - 20)/2;
             setSelectedTab(newTab);
         }
     }
     const onPrevClick = () => {
         const newTab = selectedTab - 1;
+        scroll.current.scrollLeft = 223 * newTab + 107 - (width - 20)/2;
         setSelectedTab(newTab);
     }
     const onNextClick = () => {
         const newTab = selectedTab + 1;
+        scroll.current.scrollLeft = 223 * newTab + 107 - (width - 20)/2;
         setSelectedTab(newTab);
     }
     const onSubmit = (event, value) => {
@@ -48,6 +55,18 @@ export default function App() {
         const json = await response.json();
         return json;
     }
+    const updateWidth = () => {
+        let windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
+        setWidth(windowWidth);
+    }
+
+    useEffect(() => {
+        updateWidth();
+        window.addEventListener('resize', updateWidth);
+        return function cleanup () {
+            window.removeEventListener('resize', updateWidth);
+        }
+    }, []);
 
     useEffect(() => {
         setTimeout(() => {
@@ -62,6 +81,7 @@ export default function App() {
             });
         }, 2000);
         setSelectedTab(0);
+        scroll.current.scrollLeft = 0;
     }, [city]);
 
     useEffect(() => {
@@ -87,8 +107,10 @@ export default function App() {
                     lang={lang}></Header>
             <h1>{weatherTitle}</h1>
             <WeatherView weather={weather}
+                         width={width}
                          loading={loading}
                          lang={lang}
+                         scroll={scroll}
                          selectedTab={selectedTab}
                          onTabClick={onTabClick}
                          onPrevClick={onPrevClick}

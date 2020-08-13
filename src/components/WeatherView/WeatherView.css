@@ -18,6 +18,7 @@
         top: 0px;
         overflow-x: scroll;
         overflow-y: hidden;
+        scroll-behavior: smooth;
         height: 130px;
     }
     .tabs-wrapper::-webkit-scrollbar {

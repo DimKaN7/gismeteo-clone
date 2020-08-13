@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 
 import './WeatherInfo.css';
 
@@ -11,21 +11,11 @@ import AdditionalInfo from './AdditionalInfo/AdditionalInfo';
 import {round, getWeatherIcon} from '../../../services/tools';
 
 export default function WeatherInfo(props) {
-    const {weather, lang, loading, selectedTab, onPrevClick, onNextClick} = props;
-    const [width, setWidth] = useState(0);
-
-    const updateWidth = () => {
-        let windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
-        setWidth(windowWidth);
-    }
-
-    useEffect(() => {
-        updateWidth();
-        window.addEventListener('resize', updateWidth);
-        return function cleanup () {
-            window.removeEventListener('resize', updateWidth);
-        }
-    }, []);
+    const {
+        weather, width, lang, loading, 
+        selectedTab, onPrevClick, 
+        onNextClick
+    } = props;
 
     if (loading) {
         return (

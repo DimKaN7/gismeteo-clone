@@ -40,10 +40,10 @@ export default function WeahterTab(props) {
                     <span className='tab-content__day'>{daysTitles[lang][title]}</span>
                     <div className='tab-content__temp'>
                         <div className='tab-content__temp-n'>
-                            <ValueBox value={minTempTitle} top={'16'} type={'temp'} topFixed={true}></ValueBox>
+                            <ValueBox value={minTempTitle} top={'16'} type={'temp'}></ValueBox>
                         </div>
                         <div className='tab-content__temp-d'>
-                            <ValueBox value={maxTempTitle} top={'0'} type={'temp'} topFixed={true}></ValueBox>
+                            <ValueBox value={maxTempTitle} top={'0'} type={'temp'}></ValueBox>
                         </div>
                     </div>
                 </div>
