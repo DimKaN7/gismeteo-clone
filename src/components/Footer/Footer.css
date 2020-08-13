@@ -5,6 +5,7 @@
     background-color: #359FFB;
     display: flex;
     justify-content: center;
+    position: relative;
 }
 .footer-content {
     width: 330px;

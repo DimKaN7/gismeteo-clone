@@ -67,4 +67,7 @@
     .wrapper-scroll {
         width: 200%;
     }
+    .title__button > a:hover {
+        color: red;
+    }
 }

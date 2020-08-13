@@ -41,9 +41,3 @@
     font-size: 13px;
     color: #777;
 }
-
-@media (max-width: 670px) {
-    .wind-cont-header {
-        /* чтобы название было фиксированным не зваисимо от скрола */
-    }
-}

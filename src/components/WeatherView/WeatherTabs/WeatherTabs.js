@@ -34,7 +34,7 @@ export default function WeatherTab(props) {
         const dayTitle = lang === 'ru' 
                                ? `${daysOfWeek[lang][dayOfWeek]}, ${dayNum} ${months[lang][month]}`
                                : `${daysOfWeek[lang][dayOfWeek]}, ${months[lang][month]} ${dayNum}`; 
-        const marquee = dayTitle.length > 13;
+        const marquee = dayTitle.length > 14;
 
         return {
             minTemp: minTemp,

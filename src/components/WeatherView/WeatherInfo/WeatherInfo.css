@@ -28,6 +28,9 @@
 @media (max-width: 670px) {
     .info-cont {
         margin: 0;
+        position: absolute;
+        top: 125px;
+        width: calc(100% - 20px);
     }
     .info-main {
         width: 100%;
