@@ -6,6 +6,7 @@
 }
 .times-time {
     flex: 1 1 21px;
+    width: 82.5px;
     height: 32px;
     padding-top: 11px;
     font-size: 15px;

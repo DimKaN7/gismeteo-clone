@@ -8,4 +8,5 @@
 .value-boxes-cont > div {
     position: relative;
     flex: 1 1 100%;
+    max-width: 82.5px;
 }

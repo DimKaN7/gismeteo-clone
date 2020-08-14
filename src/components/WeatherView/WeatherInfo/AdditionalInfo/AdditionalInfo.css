@@ -65,7 +65,7 @@
         display: none;
     }
     .wrapper-scroll {
-        width: 200%;
+        width: 660px;
     }
     .title__button > a:hover {
         color: red;

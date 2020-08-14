@@ -49,7 +49,7 @@ export default function WeahterTab(props) {
                 </div>
                 <div className='tab-visual'>
                     <div className='tab-visual__icon'>
-                        <img src={icon}></img>
+                        <img src={icon} alt='asdasd'></img>
                     </div>
                     <div className='tab-visual__text'>
                         <AnimatedSpan value={precipitations} withPlus={false} decimals={1}></AnimatedSpan>

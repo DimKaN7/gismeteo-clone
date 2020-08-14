@@ -24,6 +24,7 @@
 .wind-speed,
 .wind-dir {
     flex: 1 1 100%;
+    max-width: 82.5px;
     height: 100%;
     display: flex;
     justify-content: center;

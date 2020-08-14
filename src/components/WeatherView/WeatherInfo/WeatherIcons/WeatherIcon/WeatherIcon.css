@@ -1,5 +1,6 @@
 .icon-cont {
     flex: 1 1 80px;
+    max-width: 82.5px;
     display: flex;
     justify-content: center;
     position: relative;

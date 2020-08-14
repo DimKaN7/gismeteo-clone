@@ -41,7 +41,7 @@
         display: none;
     }
     .info-main-wrapper {
-        width: 200%;
+        width: 660px;
         display: flex;
         flex-direction: column;      
     }

@@ -14,6 +14,7 @@ export default function App() {
     const apiKey = 'abac1141b934536baef9782b2a0e7327';
 
     const [width, setWidth] = useState(0);
+    const [height, setHeight] = useState(0);
     const [lang, setLang] = useState('ru');
     const [city, setCity] = useState(startCity['ru']);
     const [weather, setWeather] = useState([]);
@@ -56,8 +57,11 @@ export default function App() {
         return json;
     }
     const updateWidth = () => {
-        let windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
+        const windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
+        const windowHeight = typeof window !== "undefined" ? window.outerHeight : 0;
+        console.log(windowHeight);
         setWidth(windowWidth);
+        setHeight(windowHeight);
     }
 
     useEffect(() => {
@@ -115,7 +119,7 @@ export default function App() {
                          onTabClick={onTabClick}
                          onPrevClick={onPrevClick}
                          onNextClick={onNextClick}></WeatherView>
-            <Footer></Footer>
+            <Footer height={height}></Footer>
         </div>
     );
 }
