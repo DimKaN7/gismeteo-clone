@@ -98,13 +98,14 @@ export default function App() {
         <div className='app-main-container'>
             {
                 loading &&
-                <div className='loader-cont'>
+                <>
+                    <div className='loader-wrapper'></div>
+                    <Loader></Loader>
                     {
                         showError && 
                         <div className='error-cont'>{errorTexts[lang]}</div>
                     }
-                    <Loader></Loader>
-                </div>
+                </>
             }
             <Header onSubmit={onSubmit} 
                     onLangClick={onLangClick}
