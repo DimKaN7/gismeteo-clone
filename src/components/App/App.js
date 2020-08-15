@@ -5,7 +5,7 @@ import './App.css';
 import Header from '../Header/Header';
 import WeatherView from '../WeatherView/WeatherView';
 import {getNeededData} from '../../services/tools';
-import {errorTexts, startCity} from '../../services/labels';
+import {notificationsTexts, startCity} from '../../services/labels';
 import Footer from '../Footer/Footer';
 import Loader from '../Loader/Loader';
 
@@ -20,7 +20,9 @@ export default function App() {
     const [weather, setWeather] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedTab, setSelectedTab] = useState(0);
-    const [showError, setShowError] = useState(false);
+    const [showNot, setShowNot] = useState(false);
+    const [not, setNot] = useState('');
+    const [online, toogleOnline] = useState(true);
 
     const scroll = useRef(null);
 
@@ -59,7 +61,7 @@ export default function App() {
     const updateWidth = () => {
         const windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
         const windowHeight = typeof window !== "undefined" ? window.outerHeight : 0;
-        console.log(windowHeight);
+        // console.log(windowHeight);
         setWidth(windowWidth);
         setHeight(windowHeight);
     }
@@ -74,25 +76,44 @@ export default function App() {
 
     useEffect(() => {
         setTimeout(() => {
-            getInfo()
-            .then((json) => {
-                setWeather(getNeededData(json));
-                setLoading(false);
-            })
-            .catch(() => {
-                setShowError(true);
-                setCity(startCity[lang]);
-            });
+            if (online) {
+                getInfo()
+                .then((json) => {
+                    setWeather(getNeededData(json));
+                    setLoading(false);
+                })
+                .catch(() => {
+                    setNot('notFound');
+                    setShowNot(true);
+                    setCity(startCity[lang]);
+                });
+            } 
         }, 2000);
         setSelectedTab(0);
         scroll.current.scrollLeft = 0;
-    }, [city]);
+    }, [city, online]);
 
     useEffect(() => {
         setTimeout(() => {
-            setShowError(false);
+            setShowNot(false);
         }, 2000);
-    }, [showError]);
+    }, [showNot]);
+    
+    useEffect(() => {
+        if (online) setNot('connRestore');
+        else setNot('noConn');
+        setShowNot(true);
+    }, [online]);
+
+    window.addEventListener('load', () => {
+        toogleOnline(navigator.onLine);
+    });
+    window.addEventListener('online', () => {
+        toogleOnline(true);
+    });
+    window.addEventListener('offline', () => {
+        toogleOnline(false);
+    });
 
     return (
         <div className='app-main-container'>
@@ -101,11 +122,13 @@ export default function App() {
                 <>
                     <div className='loader-wrapper'></div>
                     <Loader></Loader>
-                    {
-                        showError && 
-                        <div className='error-cont'>{errorTexts[lang]}</div>
-                    }
                 </>
+            }
+            {
+                showNot && 
+                <div className='not-wrapper'>
+                    {notificationsTexts[not][lang]}
+                </div>
             }
             <Header onSubmit={onSubmit} 
                     onLangClick={onLangClick}
