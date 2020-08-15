@@ -11,7 +11,7 @@ export default function Loader() {
 
     return (
         <div className='loader-cont'>
-            <img src={icon}></img>
+            <img src={icon} alt='loader'></img>
         </div>
     );
 }

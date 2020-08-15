@@ -13,7 +13,7 @@ export default function Footer({height}) {
                 target='_blank'
                 rel="noopener noreferrer"
                 key={el}>
-                <img src={getIcon(iconsPaths, el.toString())}></img>      
+                <img src={getIcon(iconsPaths, el.toString())} alt='footer-icon'></img>      
             </a>
         );
     });

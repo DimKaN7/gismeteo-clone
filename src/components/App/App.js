@@ -88,7 +88,7 @@ export default function App() {
                     setCity(startCity[lang]);
                 });
             } 
-        }, 2000);
+        }, 500);
         setSelectedTab(0);
         scroll.current.scrollLeft = 0;
     }, [city, online]);
@@ -98,7 +98,7 @@ export default function App() {
             setShowNot(false);
         }, 2000);
     }, [showNot]);
-    
+
     useEffect(() => {
         if (online) setNot('connRestore');
         else setNot('noConn');

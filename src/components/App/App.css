@@ -15,8 +15,8 @@
 .loader-wrapper {
     position: fixed;
     z-index: 4;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background-color: black;
     opacity: 0.5;
     display: flex;
@@ -26,7 +26,7 @@
 .not-wrapper {
     position: absolute;
     opacity: 0;
-    top: -60px;
+    top: -70px;
     width: 200px;
     background-color: black;
     opacity: 0.5;
@@ -36,6 +36,7 @@
     color: white;
     z-index: 5;
     animation: notAnim 2s ease-in-out;
+    will-change: opacity, top;
 }
 @keyframes notAnim {
     0% {

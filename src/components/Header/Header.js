@@ -35,10 +35,10 @@ export default function Header(props) {
                 </form>
                 <div className='lang-cont' onClick={onLangClick}>
                     <animated.a style={{opacity, transform: transform.interpolate(t => `${t} rotateX(180deg)`)}}>
-                         <img src={getIcon(iconsPaths, 'ru')}></img>
+                         <img src={getIcon(iconsPaths, 'ru')} alt='lang'></img>
                     </animated.a>
                     <animated.a style={{opacity: opacity.interpolate(o => 1 - o), transform}}>
-                         <img src={getIcon(iconsPaths, 'en')}></img>
+                         <img src={getIcon(iconsPaths, 'en')} alt='lang'></img>
                     </animated.a>
                 </div>
             </div>

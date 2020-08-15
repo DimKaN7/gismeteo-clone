@@ -24,7 +24,7 @@ export default function WeatherIcon(props) {
     });
     const animCont = transitions.map(({item, key, props}) => 
         <animated.div key={key} className='anim-cont' style={props}>
-            <img src={getIcon(iconsPaths, item.icon)}></img>
+            <img src={getIcon(iconsPaths, item.icon)} alt='weather'></img>
         </animated.div>
     );
 
