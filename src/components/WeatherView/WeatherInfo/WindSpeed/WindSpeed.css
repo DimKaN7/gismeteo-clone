@@ -1,6 +1,5 @@
 .wind-cont {
     width: 100%;
-    /* height: 62px; */
     margin-top: 12px;
     position: relative;
 }
@@ -17,7 +16,6 @@
 .wind-cont-speeds, 
 .wind-cont-directions {
     width: 100%;
-    /* margin-bottom: 5px; */
     display: flex;
     flex-direction: row;
 }

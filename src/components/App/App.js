@@ -61,7 +61,6 @@ export default function App() {
     const updateWidth = () => {
         const windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
         const windowHeight = typeof window !== "undefined" ? window.outerHeight : 0;
-        // console.log(windowHeight);
         setWidth(windowWidth);
         setHeight(windowHeight);
     }

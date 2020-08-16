@@ -24,7 +24,7 @@
     justify-content: center;
 }
 .not-wrapper {
-    position: absolute;
+    position: fixed;
     opacity: 0;
     top: -70px;
     width: 200px;
