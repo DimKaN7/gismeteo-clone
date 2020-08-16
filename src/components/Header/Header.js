@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {useSpring, animated} from 'react-spring';
 
 import './Header.css';
@@ -9,6 +9,7 @@ export default function Header(props) {
     const context = require.context('../../icons/others/header/', false, /\.(svg)$/);
     const iconsPaths = getImages(context);
     const [value, setValue] = useState('');
+    const input = useRef(null);
 
     const {opacity, transform} = useSpring({
         opacity: lang === 'ru' ? 1 : 0,
@@ -26,19 +27,20 @@ export default function Header(props) {
     return (
         <div className='header-cont'>
             <div className='header-cont__wrapper' >
-                <form onSubmit={(event) => {setValue(''); onSubmit(event, value)}}>
+                <form onSubmit={(event) => {setValue(''); input.current.blur(); onSubmit(event, value)}}>
                     <input className='header-cont__city' 
                             type='text'
+                            ref={input}
                             placeholder={lang === 'ru' ? 'Поиск города' : 'Search city'}
                             onChange={onChange}
                             value={value}/>
                 </form>
                 <div className='lang-cont' onClick={onLangClick}>
                     <animated.a style={{opacity, transform: transform.interpolate(t => `${t} rotateX(180deg)`)}}>
-                         <img src={getIcon(iconsPaths, 'ru')} alt='lang'></img>
+                        <img src={getIcon(iconsPaths, 'ru')} alt='lang'></img>
                     </animated.a>
                     <animated.a style={{opacity: opacity.interpolate(o => 1 - o), transform}}>
-                         <img src={getIcon(iconsPaths, 'en')} alt='lang'></img>
+                        <img src={getIcon(iconsPaths, 'en')} alt='lang'></img>
                     </animated.a>
                 </div>
             </div>

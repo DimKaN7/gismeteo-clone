@@ -22,7 +22,7 @@ export default function App() {
     const [selectedTab, setSelectedTab] = useState(0);
     const [showNot, setShowNot] = useState(false);
     const [not, setNot] = useState('');
-    const [online, toogleOnline] = useState(true);
+    const [online, toogleOnline] = useState(navigator.onLine);
 
     const scroll = useRef(null);
 
@@ -69,8 +69,29 @@ export default function App() {
     useEffect(() => {
         updateWidth();
         window.addEventListener('resize', updateWidth);
+        window.addEventListener('load', () => {
+            toogleOnline(navigator.onLine);
+        });
+        window.addEventListener('online', () => {
+            toogleOnline(true);
+        });
+        window.addEventListener('offline', () => {
+            toogleOnline(false);
+        });
         return function cleanup () {
             window.removeEventListener('resize', updateWidth);
+            window.addEventListener('load', () => {
+                toogleOnline(navigator.onLine);
+            });
+            window.addEventListener('online', () => {
+                toogleOnline(true);
+            });
+            window.addEventListener('offline', () => {
+                toogleOnline(false);
+            });
+            window.addEventListener('fetch', () => {
+                console.log('fetching');
+            });
         }
     }, []);
 
@@ -87,7 +108,7 @@ export default function App() {
                     setShowNot(true);
                     setCity(startCity[lang]);
                 });
-            } 
+            }
         }, 500);
         setSelectedTab(0);
         scroll.current.scrollLeft = 0;
@@ -104,16 +125,6 @@ export default function App() {
         else setNot('noConn');
         setShowNot(true);
     }, [online]);
-
-    window.addEventListener('load', () => {
-        toogleOnline(navigator.onLine);
-    });
-    window.addEventListener('online', () => {
-        toogleOnline(true);
-    });
-    window.addEventListener('offline', () => {
-        toogleOnline(false);
-    });
 
     return (
         <div className='app-main-container'>

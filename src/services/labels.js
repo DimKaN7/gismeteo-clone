@@ -50,8 +50,8 @@ export const notificationsTexts = {
         en: 'City not found, switching to Irkutsk',
     },
     noConn: {
-        ru: 'Отсутствует интернет соединение, оффлайн режим',
-        en: 'No internet connection, offline mode',
+        ru: 'Отсутствует интернет соединение',
+        en: 'No internet connection',
     },
     connRestore: {
         'ru': 'Соединение установлено', 
