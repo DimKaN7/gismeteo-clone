@@ -1,0 +1,10 @@
+.marquee-cont {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    font-size: 17px;
+    line-height: 19px;
+    height: 19px;
+    white-space: nowrap;
+    font-weight: 500;
+}

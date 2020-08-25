@@ -8,7 +8,9 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "react-spring": "^8.0.27",
-    "serve": "^11.3.2"
+    "serve": "^11.3.2",
+    "string-pixel-width": "^1.10.0",
+    "styled-components": "^5.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

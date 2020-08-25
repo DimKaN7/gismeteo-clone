@@ -6,6 +6,7 @@ import ValueBox from '../../WeatherInfo/ValueBoxes/ValueBox/ValueBox';
 import {getImages, getIcon} from '../../../../services/tools';
 import {daysTitles, units} from '../../../../services/labels';
 import AnimatedSpan from '../../AnimatedSpan/AnimatedSpan';
+import Marquee from '../../../Marquee/Marquee';
 
 export default function WeahterTab(props) {
     const {isSelected} = props.properties;
@@ -17,7 +18,7 @@ export default function WeahterTab(props) {
     else {
         const {lang} = props;
         const {title, stat, onTabClick} = props.properties;
-        const {dayTitle, marquee, minTemp, maxTemp, precipitations, maxFrequentIcon} = stat;
+        const {dayTitle, minTemp, maxTemp, precipitations, maxFrequentIcon} = stat;
 
         const context = require.context('../../../../icons/weather/', false, /\.(svg)$/);
         const icons = getImages(context);
@@ -36,7 +37,8 @@ export default function WeahterTab(props) {
                 onClick={() => onTabClick(title)}
                 >
                 <div className='tab-content'>
-                    <span className={marquee ? 'tab-content__date marquee' : 'tab-content__date'}>{dayTitle}</span>
+                    <Marquee string={dayTitle}></Marquee>
+                    {/* <span>asdasdasd</span> */}
                     <span className='tab-content__day'>{daysTitles[lang][title]}</span>
                     <div className='tab-content__temp'>
                         <div className='tab-content__temp-n'>

@@ -6,6 +6,7 @@ import Header from '../Header/Header';
 import WeatherView from '../WeatherView/WeatherView';
 import {getNeededData} from '../../services/tools';
 import {notificationsTexts, startCity} from '../../services/labels';
+import {getInfo} from '../../services/weatherService';
 import Footer from '../Footer/Footer';
 import Loader from '../Loader/Loader';
 
@@ -52,12 +53,6 @@ export default function App() {
     const onLangClick = () => {
         lang === 'ru' ? setLang('en') : setLang('ru');
     }
-
-    const getInfo = async () => {
-        const response = await fetch(`${apiBase}q=${city}&units=metric&lang=${lang}&appid=${apiKey}`);
-        const json = await response.json();
-        return json;
-    }
     const updateWidth = () => {
         const windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
         const windowHeight = typeof window !== "undefined" ? window.outerHeight : 0;
@@ -77,7 +72,7 @@ export default function App() {
         window.addEventListener('offline', () => {
             toogleOnline(false);
         });
-        return function cleanup () {
+        return function cleanup() {
             window.removeEventListener('resize', updateWidth);
             window.addEventListener('load', () => {
                 toogleOnline(navigator.onLine);
@@ -88,16 +83,13 @@ export default function App() {
             window.addEventListener('offline', () => {
                 toogleOnline(false);
             });
-            window.addEventListener('fetch', () => {
-                console.log('fetching');
-            });
         }
     }, []);
 
     useEffect(() => {
         setTimeout(() => {
             if (online) {
-                getInfo()
+                getInfo(`${apiBase}q=${city}&units=metric&lang=${lang}&appid=${apiKey}`)
                 .then((json) => {
                     setWeather(getNeededData(json));
                     setLoading(false);
