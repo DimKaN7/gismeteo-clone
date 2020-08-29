@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
 import styled, {keyframes} from 'styled-components';
-import pixelWidth from 'string-pixel-width';
 
 import './Marquee.css';
 
@@ -26,11 +25,23 @@ export default function Marquee(props) {
     const [offset, setOffset] = useState(0);
     const contRef = useRef(null);
 
+    const getWidth = (text) => {
+        const el = document.createElement('span');
+        el.style.fontSize = '17px';
+        el.style.fontWeight = '500';
+        el.style.fontFamily = `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif`;
+        el.innerHTML = text;
+        document.body.appendChild(el);
+        const result = el.offsetWidth;
+        document.body.removeChild(el);
+        return result;
+    }
+
     useEffect(() => {
         if (contRef) {
             const contWidth = contRef.current.offsetWidth;
-            const stringLength = pixelWidth(string, {size: 17.5});
-            const o = stringLength - contWidth > 0 ? contWidth - stringLength : 0;
+            const stringLength = getWidth(string);
+            const o = stringLength - contWidth > 0 ? contWidth - stringLength : 0; 
             setOffset(o);
         }
     }, [string]);
