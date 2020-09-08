@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
+import {connect} from 'react-redux';
 
 import './App.css';
 
@@ -10,17 +11,24 @@ import {getInfo} from '../../services/weatherService';
 import Footer from '../Footer/Footer';
 import Loader from '../Loader/Loader';
 
-export default function App() {
+import {
+    setLang, setCity, setLoading, 
+    setWeather, setWidth, setSelectedTab,
+} from '../../actions/actions';
+
+function App(props) {
     const apiBase = 'https://api.openweathermap.org/data/2.5/forecast?';
     const apiKey = 'abac1141b934536baef9782b2a0e7327';
 
-    const [width, setWidth] = useState(0);
+    const {
+        lang,
+        city, setCity,
+        loading, setLoading,
+        setWeather,
+        setWidth,
+        selectedTab, setSelectedTab,
+    } = props;
     const [height, setHeight] = useState(0);
-    const [lang, setLang] = useState('ru');
-    const [city, setCity] = useState(startCity['ru']);
-    const [weather, setWeather] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [selectedTab, setSelectedTab] = useState(0);
     const [showNot, setShowNot] = useState(false);
     const [not, setNot] = useState('');
     const [online, toogleOnline] = useState(navigator.onLine);
@@ -29,60 +37,27 @@ export default function App() {
 
     const weatherTitle = `${city.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).reduce((sum, val) => sum + ' ' + val)}`
 
-    const onTabClick = (newTab) => {
-        if (newTab !== selectedTab) {
-            scroll.current.scrollLeft = 223 * newTab + 107 - (width - 20)/2;
-            setSelectedTab(newTab);
-        }
-    }
-    const onPrevClick = () => {
-        const newTab = selectedTab - 1;
-        scroll.current.scrollLeft = 223 * newTab + 107 - (width - 20)/2;
-        setSelectedTab(newTab);
-    }
-    const onNextClick = () => {
-        const newTab = selectedTab + 1;
-        scroll.current.scrollLeft = 223 * newTab + 107 - (width - 20)/2;
-        setSelectedTab(newTab);
-    }
-    const onSubmit = (event, value) => {
-        event.preventDefault();
-        setLoading(true);
-        setCity(value);
-    }
-    const onLangClick = () => {
-        lang === 'ru' ? setLang('en') : setLang('ru');
-    }
     const updateWidth = () => {
         const windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
         const windowHeight = typeof window !== "undefined" ? window.outerHeight : 0;
         setWidth(windowWidth);
         setHeight(windowHeight);
     }
+    const updateOnline = () => {
+        toogleOnline(navigator.onLine);
+    }
 
     useEffect(() => {
         updateWidth();
         window.addEventListener('resize', updateWidth);
-        window.addEventListener('load', () => {
-            toogleOnline(navigator.onLine);
-        });
-        window.addEventListener('online', () => {
-            toogleOnline(true);
-        });
-        window.addEventListener('offline', () => {
-            toogleOnline(false);
-        });
-        return function cleanup() {
+        window.addEventListener('load', updateOnline);
+        window.addEventListener('online', updateOnline);
+        window.addEventListener('offline', updateOnline);
+        return () => {
             window.removeEventListener('resize', updateWidth);
-            window.addEventListener('load', () => {
-                toogleOnline(navigator.onLine);
-            });
-            window.addEventListener('online', () => {
-                toogleOnline(true);
-            });
-            window.addEventListener('offline', () => {
-                toogleOnline(false);
-            });
+            window.addEventListener('load', updateOnline);
+            window.addEventListener('online', updateOnline);
+            window.addEventListener('offline', updateOnline);
         }
     }, []);
 
@@ -123,7 +98,7 @@ export default function App() {
                 loading &&
                 <>
                     <div className='loader-wrapper'></div>
-                    <Loader></Loader>
+                    <Loader />
                 </>
             }
             {
@@ -132,20 +107,33 @@ export default function App() {
                     {notificationsTexts[not][lang]}
                 </div>
             }
-            <Header onSubmit={onSubmit} 
-                    onLangClick={onLangClick}
-                    lang={lang}></Header>
+            <Header />
             <h1>{weatherTitle}</h1>
-            <WeatherView weather={weather}
-                         width={width}
-                         loading={loading}
-                         lang={lang}
-                         scroll={scroll}
-                         selectedTab={selectedTab}
-                         onTabClick={onTabClick}
-                         onPrevClick={onPrevClick}
-                         onNextClick={onNextClick}></WeatherView>
-            <Footer height={height}></Footer>
+            <WeatherView scroll={scroll}
+                         selectedTab={selectedTab} />
+            <Footer height={height} />
         </div>
     );
 }
+
+const mapStateToProps = ({lang, city, loading, weather, width, selectedTab}) => {
+    return {
+        lang,
+        city,
+        loading,
+        weather,
+        width,
+        selectedTab,
+    }
+}
+
+const mapDispatchToProps = {
+    setLang,
+    setCity,
+    setLoading,
+    setWeather,
+    setWidth,
+    setSelectedTab,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

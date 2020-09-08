@@ -1,13 +1,14 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import './WeatherTabs.css';
 
 import {round, getWeatherIcon, getMaxFrequentIcon} from '../../../services/tools';
 import {daysOfWeek, months} from '../../../services/labels';
-import WeahterTab from './WeatherTab/WeatherTab';
+import WeatherTab from './WeatherTab/WeatherTab';
 
-export default function WeatherTab(props) {
-    const {weather, lang, loading, selectedTab, onTabClick} = props;
+function WeatherTabs(props) {
+    const {weather, selectedTab, lang, loading, scroll} = props;
 
     function getDayStat(day) { 
         const dayWeather = weather.slice(8 * day, (day + 1) * 8);
@@ -49,13 +50,11 @@ export default function WeatherTab(props) {
             isSelected: loading ? false : (el === selectedTab ? true : false),
             title: el,
             stat: loading ? null : getDayStat(el),
-            onTabClick: onTabClick,
         };
-        return  <WeahterTab key={el}
-                            properties={properties}
-                            loading={loading}
-                            lang={lang}>
-                </WeahterTab>
+        return  <WeatherTab key={el}
+                            scroll={scroll}
+                            properties={properties}>
+                </WeatherTab>
     });
 
     return (
@@ -64,3 +63,14 @@ export default function WeatherTab(props) {
         </div>
     );
 }
+
+const mapStateToProps = ({weather, selectedTab, lang, loading}) => {
+    return {
+        weather,
+        selectedTab,
+        lang,
+        loading,
+    }
+}
+
+export default connect(mapStateToProps)(WeatherTabs);

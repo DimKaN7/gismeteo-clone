@@ -1,6 +1,9 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import './WeatherTab.css';
+
+import {setSelectedTab} from '../../../../actions/actions';
 
 import ValueBox from '../../WeatherInfo/ValueBoxes/ValueBox/ValueBox';
 import {getImages, getIcon} from '../../../../services/tools';
@@ -8,16 +11,16 @@ import {daysTitles, units} from '../../../../services/labels';
 import AnimatedSpan from '../../AnimatedSpan/AnimatedSpan';
 import Marquee from '../../../Marquee/Marquee';
 
-export default function WeahterTab(props) {
-    const {isSelected} = props.properties;
+function WeatherTab(props) {
     if (props.loading) {
         return (
             <div className='tab-container loading'></div>
         );
     }
     else {
-        const {lang} = props;
-        const {title, stat, onTabClick} = props.properties;
+        const {lang, width, scroll,
+            selectedTab, setSelectedTab} = props;
+        const {title, stat} = props.properties;
         const {dayTitle, minTemp, maxTemp, precipitations, maxFrequentIcon} = stat;
 
         const context = require.context('../../../../icons/weather/', false, /\.(svg)$/);
@@ -26,19 +29,25 @@ export default function WeahterTab(props) {
 
         const minTempTitle = minTemp > 0 ? `+${minTemp}` : `${minTemp}`;
         const maxTempTitle = maxTemp > 0 ? `+${maxTemp}` : `${maxTemp}`;
+        
         const className = () => {
             let name = 'tab-container';
-            if (isSelected) name += ' selected';
+            if (title === selectedTab) name += ' selected';
             return name;
+        }
+        const onClick = (newTab) => {
+            if (newTab !== selectedTab) {
+                scroll.current.scrollLeft = 223 * newTab + 107 - (width - 20)/2;
+                setSelectedTab(newTab);
+            }
         }
 
         return (
             <div className={className()}
-                onClick={() => onTabClick(title)}
+                onClick={() => onClick(title)}
                 >
                 <div className='tab-content'>
                     <Marquee string={dayTitle}></Marquee>
-                    {/* <span>asdasdasd</span> */}
                     <span className='tab-content__day'>{daysTitles[lang][title]}</span>
                     <div className='tab-content__temp'>
                         <div className='tab-content__temp-n'>
@@ -62,3 +71,18 @@ export default function WeahterTab(props) {
         );
     }
 }
+
+const mapStateToProps = ({lang, loading, selectedTab, width}) => {
+    return {
+        lang,
+        loading, 
+        selectedTab,
+        width,
+    }
+}
+
+const mapDispatchToProps = {
+    setSelectedTab,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WeatherTab);

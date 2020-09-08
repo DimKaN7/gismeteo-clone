@@ -6,13 +6,12 @@ import {chunkArray} from '../../../../services/tools';
 import WeatherIcon from './WeatherIcon/WeatherIcon';
 
 export default function WeatherIcons(props) {
-    const {weatherIcons, selectedTab} = props;
+    const {weatherIcons} = props;
     const hoursWeatherIcons = chunkArray(weatherIcons);
 
     const icons = hoursWeatherIcons.map((icons, index) => {
         return (
-            <WeatherIcon key={index} 
-                         selectedTab={selectedTab}
+            <WeatherIcon key={index}
                          weatherIcons={icons}></WeatherIcon>
         );
     });

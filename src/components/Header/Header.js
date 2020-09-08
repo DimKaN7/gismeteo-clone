@@ -1,11 +1,18 @@
 import React, {useState, useRef} from 'react';
 import {useSpring, animated} from 'react-spring';
 
+import {connect} from 'react-redux';
+import {setCity, setLang, setLoading} from '../../actions/actions';
+
 import './Header.css';
 import {getImages, getIcon} from '../../services/tools';
 
-export default function Header(props) {
-    const {onSubmit, onLangClick, lang} = props;
+function Header(props) {
+    const {
+        lang, setLang,
+        setCity,
+        setLoading,
+    } = props;
     const context = require.context('../../icons/others/header/', false, /\.(svg)$/);
     const iconsPaths = getImages(context);
     const [value, setValue] = useState('');
@@ -20,6 +27,14 @@ export default function Header(props) {
         }
     });
 
+    const onSubmit = (event, value) => {
+        event.preventDefault();
+        setLoading(true);
+        setCity(value);
+    }
+    const onClick = () => {
+        lang === 'ru' ? setLang('en') : setLang('ru');
+    }
     const onChange = (event) => {
         setValue(event.target.value);
     }
@@ -35,7 +50,7 @@ export default function Header(props) {
                             onChange={onChange}
                             value={value}/>
                 </form>
-                <div className='lang-cont' onClick={onLangClick}>
+                <div className='lang-cont' onClick={onClick}>
                     <animated.a style={{opacity, transform: transform.interpolate(t => `${t} rotateX(180deg)`)}}>
                         <img src={getIcon(iconsPaths, 'ru')} alt='lang'></img>
                     </animated.a>
@@ -47,3 +62,17 @@ export default function Header(props) {
         </div>
     );
 }
+
+const mapStateToProps = ({lang}) => {
+    return {
+        lang,
+    }
+}
+
+const mapDispatchToProps = {
+    setLang,
+    setCity,
+    setLoading,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

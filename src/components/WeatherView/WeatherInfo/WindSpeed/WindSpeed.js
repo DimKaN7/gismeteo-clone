@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import './WindSpeed.css';
 
@@ -6,7 +7,7 @@ import {windDirections, titles} from '../../../../services/labels';
 import {round} from '../../../../services/tools';
 import AnimatedSpan from '../../AnimatedSpan/AnimatedSpan';
 
-export default function WindSpeed(props) {
+function WindSpeed(props) {
     const {speedInfo, lang} = props;
     
     const speeds = speedInfo.map(s => s.speed);
@@ -50,3 +51,11 @@ export default function WindSpeed(props) {
         </div>
     );
 }
+
+const mapStateToProps = ({lang}) => {
+    return {
+        lang,
+    }
+}
+
+export default connect(mapStateToProps)(WindSpeed);

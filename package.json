@@ -6,8 +6,10 @@
     "react": "^16.13.1",
     "react-async": "^10.0.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1",
     "react-scripts": "3.4.1",
     "react-spring": "^8.0.27",
+    "redux": "^4.0.5",
     "serve": "^11.3.2",
     "string-pixel-width": "^1.10.0",
     "styled-components": "^5.1.1"

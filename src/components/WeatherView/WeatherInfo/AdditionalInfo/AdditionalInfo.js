@@ -1,17 +1,22 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 
 import './AdditionalInfo.css';
 
 import Times from '../Times/Times';
 import ValueBoxes from '../ValueBoxes/ValueBoxes';
+import {setSelectedTab} from '../../../../actions/actions';
 
 import {daysTitles, daysOfWeek, months, titles} from '../../../../services/labels';
 
-export default function AdditionalInfo(props) {
+function AdditionalInfo(props) {
     const [visited, setVisited] = useState('title__button');
 
-    const {values, date, times, type, mobile=false, selectedTab, 
-            lang, oneLine=false, onNextClick, onPrevClick} = props;
+    const {selectedTab, setSelectedTab,
+        lang, width} = props;
+    const {values, date, times, type, 
+        mobile=false, oneLine=false, scroll} = props;
+
     const dayOfWeek = date.getUTCDay();
     const dayNum = date.getUTCDate();
     const month = date.getUTCMonth();
@@ -43,6 +48,16 @@ export default function AdditionalInfo(props) {
     const onMouseLeave = () => {
         const v = 'title__button';
         setVisited(v);
+    }
+    const onPrevClick = () => {
+        const newTab = selectedTab - 1;
+        scroll.current.scrollLeft = 223 * newTab + 107 - (width - 20)/2;
+        setSelectedTab(newTab);
+    }
+    const onNextClick = () => {
+        const newTab = selectedTab + 1;
+        scroll.current.scrollLeft = 223 * newTab + 107 - (width - 20)/2;
+        setSelectedTab(newTab);
     }
 
     return (
@@ -91,3 +106,15 @@ export default function AdditionalInfo(props) {
         </div>
     );
 }
+
+const mapStateToProps = ({selectedTab, lang, width}) => {
+    return {
+        selectedTab, lang, width,
+    }
+}
+
+const mapDispatchToProps = {
+    setSelectedTab,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdditionalInfo);

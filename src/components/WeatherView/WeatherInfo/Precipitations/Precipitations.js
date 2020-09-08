@@ -1,11 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import './Precipitations.css';
 
 import AnimatedSpan from '../../AnimatedSpan/AnimatedSpan';
 import {titles} from '../../../../services/labels';
 
-export default function Precipitations(props) {
+function Precipitations(props) {
     const {precipitations, lang} = props;
     const precipitationsConts = precipitations.map((prec, index) => {
         return (
@@ -27,3 +28,11 @@ export default function Precipitations(props) {
         </div>
     );
 }
+
+const mapStateToProps = ({lang}) => {
+    return {
+        lang,
+    }
+}
+
+export default connect(mapStateToProps)(Precipitations);

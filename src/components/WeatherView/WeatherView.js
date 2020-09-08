@@ -7,29 +7,15 @@ import WeatherInfo from './WeatherInfo/WeatherInfo';
 
 export default function WeatherView(props) {
     const {
-        weather, width, lang, scroll, loading,
-        selectedTab, onTabClick, onPrevClick, 
-        onNextClick
+        scroll,
     } = props;
 
     return (
         <div className='weather-cont'>
             <div ref={scroll} className='tabs-wrapper'>
-                <WeatherTabs weather={weather}
-                             loading={loading}
-                             lang={lang}
-                             selectedTab={selectedTab}
-                             onTabClick={onTabClick}>
-                </WeatherTabs>
+                <WeatherTabs scroll={scroll}></WeatherTabs>
             </div>
-            <WeatherInfo weather={weather}
-                         width={width}
-                         loading={loading}
-                         lang={lang}
-                         selectedTab={selectedTab}
-                         onPrevClick={onPrevClick}
-                         onNextClick={onNextClick}>
-            </WeatherInfo>
+            <WeatherInfo scroll={scroll} />
         </div>
     );
 }

@@ -1,11 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {useTransition, animated} from 'react-spring';
 
 import './WeatherIcon.css';
 
 import {getImages, getIcon} from '../../../../../services/tools';
 
-export default function WeatherIcon(props) {
+function WeatherIcon(props) {
     let {selectedTab, weatherIcons} = props;
     weatherIcons = weatherIcons.map((icon, index) => {
         return {id: index, icon: icon}
@@ -34,3 +35,11 @@ export default function WeatherIcon(props) {
         </div>
     );
 }
+
+const mapStateToProps = ({selectedTab}) => {
+    return {
+        selectedTab,
+    }
+}
+
+export default connect(mapStateToProps)(WeatherIcon);

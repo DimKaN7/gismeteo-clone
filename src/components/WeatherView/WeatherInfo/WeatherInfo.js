@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import './WeatherInfo.css';
 
@@ -10,11 +11,13 @@ import Precipitations from './Precipitations/Precipitations';
 import AdditionalInfo from './AdditionalInfo/AdditionalInfo';
 import {round, getWeatherIcon} from '../../../services/tools';
 
-export default function WeatherInfo(props) {
+function WeatherInfo(props) {
     const {
-        weather, width, lang, loading, 
-        selectedTab, onPrevClick, 
-        onNextClick
+        scroll,
+        weather,
+        width, 
+        loading,
+        selectedTab,
     } = props;
 
     if (loading) {
@@ -50,10 +53,10 @@ export default function WeatherInfo(props) {
                     <div className='info-main'>
                         <div className='info-main-wrapper'>
                             <Times times={times}></Times>
-                            <WeatherIcons weatherIcons={weatherIcons} selectedTab={selectedTab}></WeatherIcons>
+                            <WeatherIcons weatherIcons={weatherIcons}></WeatherIcons>
                             <ValueBoxes values={temps}></ValueBoxes>
-                            <WindSpeed speedInfo={speedInfo} lang={lang}></WindSpeed>
-                            <Precipitations precipitations={precipitations} lang={lang}></Precipitations> 
+                            <WindSpeed speedInfo={speedInfo}></WindSpeed>
+                            <Precipitations precipitations={precipitations}></Precipitations> 
                         </div>
                     </div>
                     <AdditionalInfo type={'pressure'}
@@ -61,32 +64,31 @@ export default function WeatherInfo(props) {
                                     date={date}
                                     times={times}
                                     values={pressures}
-                                    lang={lang}
-                                    selectedTab={selectedTab}
-                                    onPrevClick={onPrevClick}
-                                    onNextClick={onNextClick}></AdditionalInfo>
+                                    scroll={scroll}></AdditionalInfo>
                     <AdditionalInfo type={'humidity'}
                                     mobile={width < 670}
                                     date={date}
                                     times={times}
                                     values={humidities}
-                                    lang={lang}
-                                    selectedTab={selectedTab}
                                     oneLine={true}
-                                    onPrevClick={onPrevClick}
-                                    onNextClick={onNextClick}></AdditionalInfo>
+                                    scroll={scroll}></AdditionalInfo>
                     <AdditionalInfo type={'visibility'}
                                     mobile={width < 670}
                                     date={date}
                                     times={times}
                                     values={visibilities}
-                                    lang={lang}
-                                    selectedTab={selectedTab}
                                     oneLine={true}
-                                    onPrevClick={onPrevClick}
-                                    onNextClick={onNextClick}></AdditionalInfo>
+                                    scroll={scroll}></AdditionalInfo>
                 </div>       
             </div>
         );
     }
 }
+
+const mapStateToProps = ({weather, width, loading, selectedTab}) => {
+    return {
+        weather, width, loading, selectedTab
+    }
+}
+
+export default connect(mapStateToProps)(WeatherInfo);
