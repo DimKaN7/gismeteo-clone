@@ -46,8 +46,8 @@ export const units = {
 }
 export const notificationsTexts = {
     notFound: {
-        ru: 'Город не найден, переключение на Иркутск',
-        en: 'City not found, switching to Irkutsk',
+        ru: 'Город не найден',
+        en: 'City not found',
     },
     noConn: {
         ru: 'Отсутствует интернет соединение',
