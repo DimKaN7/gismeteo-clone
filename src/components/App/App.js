@@ -82,6 +82,7 @@ function App(props) {
         const onLocationError = () => {
             setNot('locationDenied');
             setShowNot(true);
+            updateCity(city);
         }
         if (online) {
             setLoading(true);
