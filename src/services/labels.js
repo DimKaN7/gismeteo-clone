@@ -46,7 +46,7 @@ export const units = {
 }
 export const notificationsTexts = {
     notFound: {
-        ru: 'Город не найден. переключение на Иркутск',
+        ru: 'Город не найден, переключение на Иркутск',
         en: 'City not found, switching to Irkutsk',
     },
     noConn: {
@@ -54,9 +54,13 @@ export const notificationsTexts = {
         en: 'No internet connection',
     },
     connRestore: {
-        'ru': 'Соединение установлено', 
-        'en': 'Connection restore',
-    }
+        ru: 'Соединение установлено', 
+        en: 'Connection restore',
+    },
+    locationDenied: {
+        ru: 'Невозможно получить данные геолокации',
+        en: 'Unable to get geolocation data',
+    },
 }
 export const links = [
     'https://openweathermap.org/',

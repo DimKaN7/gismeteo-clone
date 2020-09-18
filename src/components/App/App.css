@@ -8,6 +8,7 @@
 }
 .app-main-container > h1 {
     width: 660px;
+    height: 26px;
     font-size: 22px;
     padding-left: 10px;
     margin: 50px 0 0 0;

@@ -2,16 +2,18 @@ import React, {useState, useRef} from 'react';
 import {useSpring, animated} from 'react-spring';
 
 import {connect} from 'react-redux';
-import {setCity, setLang, setLoading} from '../../actions/actions';
+import {setLang, setLoading} from '../../actions/actions';
 
 import './Header.css';
 import {getImages, getIcon} from '../../services/tools';
+import gps from '../../icons/others/header/gps.png';
 
 function Header(props) {
     const {
         lang, setLang,
-        setCity,
         setLoading,
+        onLocationClick,
+        updateCity,
     } = props;
     const context = require.context('../../icons/others/header/', false, /\.(svg)$/);
     const iconsPaths = getImages(context);
@@ -29,10 +31,12 @@ function Header(props) {
 
     const onSubmit = (event, value) => {
         event.preventDefault();
+        setValue(''); 
+        input.current.blur(); 
         setLoading(true);
-        setCity(value);
+        updateCity(value);
     }
-    const onClick = () => {
+    const onLangClick = () => {
         lang === 'ru' ? setLang('en') : setLang('ru');
     }
     const onChange = (event) => {
@@ -42,15 +46,20 @@ function Header(props) {
     return (
         <div className='header-cont'>
             <div className='header-cont__wrapper' >
-                <form onSubmit={(event) => {setValue(''); input.current.blur(); onSubmit(event, value)}}>
-                    <input className='header-cont__city' 
-                            type='text'
-                            ref={input}
-                            placeholder={lang === 'ru' ? 'Поиск города' : 'Search city'}
-                            onChange={onChange}
-                            value={value}/>
-                </form>
-                <div className='lang-cont' onClick={onClick}>
+                <div className='header-cont__form'>
+                    <form onSubmit={(event) => onSubmit(event, value)}>
+                        <input className='header-cont__city' 
+                                type='text'
+                                ref={input}
+                                placeholder={lang === 'ru' ? 'Поиск города' : 'Search city'}
+                                onChange={onChange}
+                                value={value}/>
+                    </form>
+                    <div className='current-location' onClick={onLocationClick}>
+                        <img src={gps}></img>
+                    </div>
+                </div>
+                <div className='lang-cont' onClick={onLangClick}>
                     <animated.a style={{opacity, transform: transform.interpolate(t => `${t} rotateX(180deg)`)}}>
                         <img src={getIcon(iconsPaths, 'ru')} alt='lang'></img>
                     </animated.a>
@@ -71,7 +80,6 @@ const mapStateToProps = ({lang}) => {
 
 const mapDispatchToProps = {
     setLang,
-    setCity,
     setLoading,
 }
 

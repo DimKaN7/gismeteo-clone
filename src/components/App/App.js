@@ -28,6 +28,7 @@ function App(props) {
         setWidth,
         selectedTab, setSelectedTab,
     } = props;
+    
     const [height, setHeight] = useState(0);
     const [showNot, setShowNot] = useState(false);
     const [not, setNot] = useState('');
@@ -35,7 +36,7 @@ function App(props) {
 
     const scroll = useRef(null);
 
-    const weatherTitle = `${city.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).reduce((sum, val) => sum + ' ' + val)}`
+    const cityTitle = `${city.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).reduce((sum, val) => sum + ' ' + val)}`
 
     const updateWidth = () => {
         const windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
@@ -46,6 +47,47 @@ function App(props) {
     const updateOnline = () => {
         toogleOnline(navigator.onLine);
     }
+    const updateCity = (newCity=undefined, lat=undefined, lon=undefined) => {
+        const resolve = (json) => {
+            if (!newCity) newCity = json.city.name;
+            setCity(newCity);
+            setWeather(getNeededData(json));
+            setLoading(false);
+        }
+        const reject = () => {
+            setNot('notFound');
+            setShowNot(true);
+            setLoading(false);
+            setCity(city);
+        }
+        const timeout = setTimeout(() => {
+            if (online) {
+                const requset = lat
+                                    ?   `${apiBase}lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
+                                    :   `${apiBase}q=${newCity}&units=metric&lang=${lang}&appid=${apiKey}`;
+                getInfo(requset, resolve, reject);
+            }
+        }, 500);
+        setSelectedTab(0);
+        scroll.current.scrollLeft = 0;
+        return () => clearTimeout(timeout);
+    }
+
+    const onLocationClick = () => {
+        const onLocationSuccess = (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            updateCity(undefined, lat, lon);
+        }
+        const onLocationError = () => {
+            setNot('locationDenied');
+            setShowNot(true);
+        }
+        if (online) {
+            setLoading(true);
+            navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError);
+        }
+    }
 
     useEffect(() => {
         updateWidth();
@@ -53,6 +95,7 @@ function App(props) {
         window.addEventListener('load', updateOnline);
         window.addEventListener('online', updateOnline);
         window.addEventListener('offline', updateOnline);
+
         return () => {
             window.removeEventListener('resize', updateWidth);
             window.addEventListener('load', updateOnline);
@@ -62,31 +105,14 @@ function App(props) {
     }, []);
 
     useEffect(() => {
-        setTimeout(() => {
-            if (online) {
-                getInfo(`${apiBase}q=${city}&units=metric&lang=${lang}&appid=${apiKey}`)
-                .then((json) => {
-                    setWeather(getNeededData(json));
-                    setLoading(false);
-                })
-                .catch(() => {
-                    setNot('notFound');
-                    setShowNot(true);
-                    setCity(startCity[lang]);
-                });
-            }
-        }, 500);
-        setSelectedTab(0);
-        scroll.current.scrollLeft = 0;
-    }, [city, online]);
-
-    useEffect(() => {
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
             setShowNot(false);
         }, 2000);
+        return () => clearTimeout(timeout);
     }, [showNot]);
 
     useEffect(() => {
+        updateCity(startCity[lang]);
         if (online) setNot('connRestore');
         else setNot('noConn');
         setShowNot(true);
@@ -107,8 +133,9 @@ function App(props) {
                     {notificationsTexts[not][lang]}
                 </div>
             }
-            <Header />
-            <h1>{weatherTitle}</h1>
+            <Header onLocationClick={onLocationClick} 
+                    updateCity={updateCity} />
+            <h1>{cityTitle}</h1>
             <WeatherView scroll={scroll}
                          selectedTab={selectedTab} />
             <Footer height={height} />

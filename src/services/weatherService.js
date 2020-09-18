@@ -1,5 +1,6 @@
-export async function getInfo(url) {
-    const response = await fetch(url);
-    const json = await response.json();
-    return json;
+export function getInfo(url, resolve, reject) {
+    fetch(url)
+        .then((response) => response.json())
+        .then((json) => resolve(json))
+        .catch(reject);
 }

@@ -1,8 +1,8 @@
-import {startCity} from '../services/labels';
+// import {startCity} from '../services/labels';
 
 const initialState = {
     lang: 'ru',
-    city: startCity['ru'],
+    city: 'Иркутск',
     weather: [],
     loading: true,
     selectedTab: 0,
@@ -10,7 +10,7 @@ const initialState = {
 };
 
 const reducer = (state=initialState, action) => {
-    // console.log(state);
+    // console.log(state.prevCity);
     switch (action.type) {
         case 'SET_LANG':
             return {
@@ -21,7 +21,7 @@ const reducer = (state=initialState, action) => {
             return {
                 ...state,
                 city: action.payload,
-            }    
+            }
         case 'SET_LOADING': 
             return {
                 ...state,

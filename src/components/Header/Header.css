@@ -16,13 +16,29 @@
     justify-content: space-between;
     align-items: center;
 }
+.header-cont__form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.current-location {
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.current-location > img {
+    width: 100%;
+    height: 100%;
+}
 .header-cont__city {
     outline: none;
     height: 30px;
     border: 1px solid white;
     border-radius: 5px;
     padding: 0 10px;
-    width: 213px;
+    width: 190px;
 }
 .header-cont__city::placeholder {
     color: #359FFB;
