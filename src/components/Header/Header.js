@@ -35,6 +35,7 @@ function Header(props) {
         input.current.blur(); 
         setLoading(true);
         updateCity(value);
+        // localStorage.setItem('city', value);
     }
     const onLangClick = () => {
         lang === 'ru' ? setLang('en') : setLang('ru');
@@ -56,7 +57,7 @@ function Header(props) {
                                 value={value}/>
                     </form>
                     <div className='current-location' onClick={onLocationClick}>
-                        <img src={gps}></img>
+                        <img src={gps} alt='gps'></img>
                     </div>
                 </div>
                 <div className='lang-cont' onClick={onLangClick}>

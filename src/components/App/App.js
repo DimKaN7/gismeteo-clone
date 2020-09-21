@@ -6,7 +6,7 @@ import './App.css';
 import Header from '../Header/Header';
 import WeatherView from '../WeatherView/WeatherView';
 import {getNeededData} from '../../services/tools';
-import {notificationsTexts, startCity} from '../../services/labels';
+import {notificationsTexts} from '../../services/labels';
 import {getInfo} from '../../services/weatherService';
 import Footer from '../Footer/Footer';
 import Loader from '../Loader/Loader';
@@ -36,7 +36,9 @@ function App(props) {
 
     const scroll = useRef(null);
 
-    const cityTitle = `${city.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1)).reduce((sum, val) => sum + ' ' + val)}`
+    const cityTitle = `${city.split(' ')
+                                .map(p => p.charAt(0).toUpperCase() + p.slice(1))
+                                .reduce((sum, val) => sum + ' ' + val)}`
 
     const updateWidth = () => {
         const windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
@@ -53,12 +55,14 @@ function App(props) {
             setCity(newCity);
             setWeather(getNeededData(json));
             setLoading(false);
+            localStorage.setItem('city', newCity);
         }
         const reject = () => {
             setNot('notFound');
             setShowNot(true);
             setLoading(false);
             setCity(city);
+            localStorage.setItem('city', city);
         }
         const timeout = setTimeout(() => {
             if (online) {
@@ -113,8 +117,10 @@ function App(props) {
     }, [showNot]);
 
     useEffect(() => {
-        updateCity(startCity[lang]);
-        if (online) setNot('connRestore');
+        if (online) {
+            updateCity(city);
+            setNot('connRestore');
+        }
         else setNot('noConn');
         setShowNot(true);
     }, [online]);

@@ -1,8 +1,6 @@
-// import {startCity} from '../services/labels';
-
 const initialState = {
     lang: 'ru',
-    city: 'Иркутск',
+    city: localStorage.getItem('city') || 'Иркутск',
     weather: [],
     loading: true,
     selectedTab: 0,

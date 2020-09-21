@@ -6,7 +6,6 @@ export function round(value, decimals) {
     return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
 }
 
-// костыль, переделать!
 export function getWeatherIcon(weather) {
     let result = '';
     const hour = weather.timeLocal;
