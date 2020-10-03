@@ -6,7 +6,7 @@ import './AnimatedSpan.css';
 import {round} from '../../../services/tools';
 
 export default function AnimatedSpan(props) {
-    const {value, withPlus, decimals = 0} = props;
+    const {value, withPlus=false, decimals = 0} = props;
 
     const animProps = useSpring(
         {
@@ -21,8 +21,7 @@ export default function AnimatedSpan(props) {
 
     return (
         <div className='animated-cont'>
-            {+value && withPlus > 0 ? <span>+</span> : null}
-            <animated.span>{animProps.number.interpolate(x => round(x, decimals))}</animated.span>
+            <animated.span>{animProps.number.interpolate(x => x > 0 && withPlus ? `+${round(x, decimals)}` : `${round(x, decimals)}`)}</animated.span>
         </div>
     );
 }
